@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:manglam_engineers/features/valution/valuation_step7.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_text_styles.dart';
 import '../../core/widgets/app_textfield.dart';
-import 'valuation_step7.dart';
+import '../../core/widgets/bottom_action_buttons.dart';
 
 class ValuationStep6 extends StatefulWidget {
   const ValuationStep6({super.key});
@@ -29,15 +30,20 @@ class _ValuationStep6State extends State<ValuationStep6> {
 
     return Scaffold(
       backgroundColor: AppColors.background,
+
       appBar: AppBar(
         backgroundColor: AppColors.background,
         elevation: 0,
+        centerTitle: true,
         leading: const BackButton(color: Colors.black),
-        title: const Text("Valuation Report"),
+        title: const Text(
+          "Valuation Report",
+          style: AppTextStyles.appBarTitle,
+        ),
         actions: [
           IconButton(
             onPressed: () {},
-            icon: const Icon(Icons.save_outlined, color: Colors.black),
+            icon: const Icon(Icons.save_outlined, color: Colors.black87),
           ),
         ],
       ),
@@ -46,11 +52,12 @@ class _ValuationStep6State extends State<ValuationStep6> {
         children: [
           Container(
             width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            color: const Color(0xFFEDE7DF),
-            child: Row(
+            padding:
+            const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            color: const Color(0xFFF1ECE6),
+            child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
+              children: [
                 Text("Step 6/7",
                     style:
                     TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
@@ -70,18 +77,22 @@ class _ValuationStep6State extends State<ValuationStep6> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  const Text(
+                    "Market Rate with Contact No. & Any Transaction",
+                    style: AppTextStyles.sectionTitle,
+                  ),
+                  const SizedBox(height: 12),
+
                   _rateCard(
                     title: "as per Customer",
                     nameController: customerNameController,
                     rateController: customerRateController,
                   ),
-
                   _rateCard(
                     title: "as per Local Enquiry",
                     nameController: localNameController,
                     rateController: localRateController,
                   ),
-
                   _rateCard(
                     title: "Self Assessment",
                     nameController: selfNameController,
@@ -89,7 +100,7 @@ class _ValuationStep6State extends State<ValuationStep6> {
                   ),
 
                   _label("Visited by"),
-                  _dropdown("Select road condition"),
+                  _dropdown("Select"),
 
                   _label("Remarks"),
                   AppTextField(
@@ -98,7 +109,7 @@ class _ValuationStep6State extends State<ValuationStep6> {
                     maxLines: 4,
                   ),
 
-                  const SizedBox(height: 90),
+                  const SizedBox(height: 40),
                 ],
               ),
             ),
@@ -106,54 +117,14 @@ class _ValuationStep6State extends State<ValuationStep6> {
         ],
       ),
 
-      bottomNavigationBar: Container(
-        padding: const EdgeInsets.fromLTRB(16, 10, 16, 20),
-        color: AppColors.background,
-        child: Row(
-          children: [
-            Expanded(
-              child: ElevatedButton.icon(
-                onPressed: () => Navigator.pop(context),
-                icon: const Icon(Icons.arrow_back),
-                label: const Text("Previous"),
-                style: ElevatedButton.styleFrom(
-                  elevation: 0,
-                  backgroundColor: const Color(0xFFFFF3E0),
-                  foregroundColor: Colors.orange,
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => const ValuationStep7()),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  elevation: 0,
-                  backgroundColor: const Color(0xFFFFF3E0),
-                  foregroundColor: Colors.orange,
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                ),
-                child: const Text(
-                  "Next →",
-                  style: TextStyle(fontWeight: FontWeight.w600),
-                ),
-              ),
-            ),
-          ],
-        ),
+      bottomNavigationBar: BottomActionButtons(
+        onPrevious: () => Navigator.pop(context),
+        onNext: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const ValuationStep7()),
+          );
+        },
       ),
     );
   }
@@ -169,6 +140,7 @@ class _ValuationStep6State extends State<ValuationStep6> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: const Color(0xFFE0E0E0)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -179,6 +151,7 @@ class _ValuationStep6State extends State<ValuationStep6> {
             hint: "Name & Contact No.",
             controller: nameController,
           ),
+          const SizedBox(height: 10),
           AppTextField(
             hint: "Rate",
             controller: rateController,
@@ -204,6 +177,7 @@ class _ValuationStep6State extends State<ValuationStep6> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: const Color(0xFFE0E0E0)),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

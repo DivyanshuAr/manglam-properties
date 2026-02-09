@@ -1,7 +1,10 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:manglam_engineers/features/valution/valuation_step6.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/theme/app_text_styles.dart';
+import '../../core/theme/app_colors.dart';
+import '../../core/theme/app_text_styles.dart';
+import '../../core/widgets/bottom_action_buttons.dart';
 
 class ValuationStep5 extends StatefulWidget {
   const ValuationStep5({super.key});
@@ -11,6 +14,16 @@ class ValuationStep5 extends StatefulWidget {
 }
 
 class _ValuationStep5State extends State<ValuationStep5> {
+  final ImagePicker _picker = ImagePicker();
+
+  Future<void> pickImage() async {
+    await _picker.pickImage(source: ImageSource.gallery);
+  }
+
+  Future<void> pickVideo() async {
+    await _picker.pickVideo(source: ImageSource.gallery);
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -20,25 +33,29 @@ class _ValuationStep5State extends State<ValuationStep5> {
       appBar: AppBar(
         backgroundColor: AppColors.background,
         elevation: 0,
+        centerTitle: true,
         leading: const BackButton(color: Colors.black),
-        title: const Text("Valuation Report"),
+        title: const Text(
+          "Valuation Report",
+          style: AppTextStyles.appBarTitle,
+        ),
         actions: [
           IconButton(
             onPressed: () {},
-            icon: const Icon(Icons.save_outlined, color: Colors.black),
+            icon: const Icon(Icons.save_outlined, color: Colors.black87),
           ),
         ],
       ),
-
       body: Column(
         children: [
           Container(
             width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            color: const Color(0xFFEDE7DF),
-            child: Row(
+            padding:
+            const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            color: const Color(0xFFF1ECE6),
+            child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
+              children: [
                 Text("Step 5/7",
                     style:
                     TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
@@ -48,7 +65,6 @@ class _ValuationStep5State extends State<ValuationStep5> {
               ],
             ),
           ),
-
           Expanded(
             child: SingleChildScrollView(
               padding: EdgeInsets.symmetric(
@@ -76,62 +92,21 @@ class _ValuationStep5State extends State<ValuationStep5> {
                     optional: true,
                     video: true,
                   ),
-                  const SizedBox(height: 90),
+                  const SizedBox(height: 40),
                 ],
               ),
             ),
           ),
         ],
       ),
-
-      bottomNavigationBar: Container(
-        padding: const EdgeInsets.fromLTRB(16, 10, 16, 20),
-        color: AppColors.background,
-        child: Row(
-          children: [
-            Expanded(
-              child: ElevatedButton.icon(
-                onPressed: () => Navigator.pop(context),
-                icon: const Icon(Icons.arrow_back),
-                label: const Text("Previous"),
-                style: ElevatedButton.styleFrom(
-                  elevation: 0,
-                  backgroundColor: const Color(0xFFFFF3E0),
-                  foregroundColor: Colors.orange,
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => const ValuationStep6()),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  elevation: 0,
-                  backgroundColor: const Color(0xFFFFF3E0),
-                  foregroundColor: Colors.orange,
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                ),
-                child: const Text(
-                  "Next →",
-                  style: TextStyle(fontWeight: FontWeight.w600),
-                ),
-              ),
-            ),
-          ],
-        ),
+      bottomNavigationBar: BottomActionButtons(
+        onPrevious: () => Navigator.pop(context),
+        onNext: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const ValuationStep6()),
+          );
+        },
       ),
     );
   }
@@ -146,27 +121,36 @@ class _ValuationStep5State extends State<ValuationStep5> {
           style: AppTextStyles.label,
         ),
         const SizedBox(height: 6),
-        Container(
-          margin: const EdgeInsets.only(bottom: 16),
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(14),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                video ? "Upload Video (Optional)" : "Upload Photo",
-                style: const TextStyle(color: Colors.grey),
-              ),
-              Icon(
-                video
-                    ? Icons.video_call_outlined
-                    : Icons.image_outlined,
-                color: Colors.orange,
-              ),
-            ],
+        GestureDetector(
+          onTap: () {
+            if (video) {
+              pickVideo();
+            } else {
+              pickImage();
+            }
+          },
+          child: Container(
+            margin: const EdgeInsets.only(bottom: 16),
+            padding:
+            const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(color: const Color(0xFFE0E0E0)),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  video ? "Upload Video" : "Upload Photo",
+                  style: const TextStyle(color: Colors.grey),
+                ),
+                Icon(
+                  video ? Icons.videocam_outlined : Icons.image_outlined,
+                  color: Colors.orange,
+                ),
+              ],
+            ),
           ),
         ),
       ],

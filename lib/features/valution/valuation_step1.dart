@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../core/theme/app_colors.dart';
+import '../../core/theme/app_text_styles.dart';
 import '../../core/widgets/app_textfield.dart';
+import '../../core/widgets/bottom_action_buttons.dart';
 import 'valuation_step2.dart';
 
 class ValuationStep1 extends StatefulWidget {
@@ -39,21 +41,38 @@ class _ValuationStep1State extends State<ValuationStep1> {
 
     return Scaffold(
       backgroundColor: AppColors.background,
+
+      ///  APP BAR
       appBar: AppBar(
         backgroundColor: AppColors.background,
         elevation: 0,
-        title: const Text("Valuation Report"),
+        centerTitle: true,
+        automaticallyImplyLeading: true,
+        iconTheme: const IconThemeData(color: Colors.black87),
+        title: const Text(
+          "Valuation Report",
+          style: AppTextStyles.appBarTitle,
+        ),
+        actions: const [
+          Padding(
+            padding: EdgeInsets.only(right: 16),
+            child: Icon(Icons.save_outlined, color: Colors.black87),
+          ),
+        ],
       ),
+
 
       body: Column(
         children: [
+          ///  STEP HEADER
           Container(
             width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            color: const Color(0xFFEDE7DF),
-            child: Row(
+            padding:
+            const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            color: const Color(0xFFF1ECE6),
+            child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
+              children: [
                 Text("Step 1/7",
                     style:
                     TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
@@ -64,6 +83,7 @@ class _ValuationStep1State extends State<ValuationStep1> {
             ),
           ),
 
+          ///  FORM
           Expanded(
             child: SingleChildScrollView(
               padding: EdgeInsets.symmetric(
@@ -75,17 +95,21 @@ class _ValuationStep1State extends State<ValuationStep1> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    /// Bank
                     const Text("Name of the Bank"),
                     const SizedBox(height: 6),
                     AppTextField(
                       hint: "Select Bank Name",
                       controller: bankController,
-                      suffixIcon: const Icon(Icons.keyboard_arrow_down),
+                      suffixIcon:
+                      const Icon(Icons.keyboard_arrow_down),
                       validator: (v) =>
                       v == null || v.isEmpty ? "Required" : null,
                     ),
 
                     const SizedBox(height: 16),
+
+                    /// Date
                     const Text("Date of Technical Visit"),
                     const SizedBox(height: 6),
                     AppTextField(
@@ -93,12 +117,15 @@ class _ValuationStep1State extends State<ValuationStep1> {
                       controller: visitDateController,
                       readOnly: true,
                       onTap: _selectDate,
-                      suffixIcon: const Icon(Icons.calendar_today_outlined),
+                      suffixIcon: const Icon(
+                          Icons.calendar_today_outlined),
                       validator: (v) =>
                       v == null || v.isEmpty ? "Required" : null,
                     ),
 
                     const SizedBox(height: 16),
+
+                    /// Customer
                     const Text("Name of the Customer"),
                     const SizedBox(height: 6),
                     AppTextField(
@@ -109,6 +136,8 @@ class _ValuationStep1State extends State<ValuationStep1> {
                     ),
 
                     const SizedBox(height: 16),
+
+                    /// Mobile
                     const Text("Mobile Number"),
                     const SizedBox(height: 6),
                     AppTextField(
@@ -123,6 +152,8 @@ class _ValuationStep1State extends State<ValuationStep1> {
                     ),
 
                     const SizedBox(height: 16),
+
+                    /// Owner
                     const Text("Owner’s Name"),
                     const SizedBox(height: 6),
                     AppTextField(
@@ -133,6 +164,8 @@ class _ValuationStep1State extends State<ValuationStep1> {
                     ),
 
                     const SizedBox(height: 16),
+
+                    /// Meet person
                     const Text("Person Meet Name and Contact No."),
                     const SizedBox(height: 6),
                     AppTextField(
@@ -141,7 +174,8 @@ class _ValuationStep1State extends State<ValuationStep1> {
                       validator: (v) =>
                       v == null || v.isEmpty ? "Required" : null,
                     ),
-                    const SizedBox(height: 80),
+
+                    const SizedBox(height: 40),
                   ],
                 ),
               ),
@@ -150,57 +184,20 @@ class _ValuationStep1State extends State<ValuationStep1> {
         ],
       ),
 
-      bottomNavigationBar: Container(
-        padding: const EdgeInsets.fromLTRB(16, 10, 16, 20),
-        color: AppColors.background,
-        child: Row(
-          children: [
-            Expanded(
-              child: OutlinedButton.icon(
-                onPressed: () => Navigator.pop(context),
-                icon: const Icon(Icons.arrow_back, size: 18),
-                label: const Text("Previous"),
-                style: OutlinedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  backgroundColor: Colors.white,
-                  side: const BorderSide(color: Color(0xFFE0E0E0)),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(6), // 🔥 less round
-                  ),
-                ),
+      ///  FIGMA STYLE BUTTONS
+      bottomNavigationBar: BottomActionButtons(
+        onPrevious: () => Navigator.pop(context),
+        onNext: () {
+          if (_formKey.currentState!.validate()) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => const ValuationStep2(),
               ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (_) => const ValuationStep2()),
-                    );
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                  elevation: 0,
-                  backgroundColor: const Color(0xFFFFF3E0),
-                  foregroundColor: Colors.orange,
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(6), // 🔥 square look
-                  ),
-                ),
-                child: const Text(
-                  "Next →",
-                  style: TextStyle(fontWeight: FontWeight.w600),
-                ),
-              ),
-            ),
-          ],
-        ),
+            );
+          }
+        },
       ),
-
     );
   }
 }

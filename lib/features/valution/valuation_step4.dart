@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_text_styles.dart';
 import '../../core/widgets/app_textfield.dart';
+import '../../core/widgets/bottom_action_buttons.dart';
 import '../valution/valuation_step5.dart';
 
 class ValuationStep4 extends StatefulWidget {
@@ -23,15 +24,20 @@ class _ValuationStep4State extends State<ValuationStep4> {
 
     return Scaffold(
       backgroundColor: AppColors.background,
+
       appBar: AppBar(
         backgroundColor: AppColors.background,
         elevation: 0,
+        centerTitle: true,
         leading: const BackButton(color: Colors.black),
-        title: const Text("Valuation Report"),
+        title: const Text(
+          "Valuation Report",
+          style: AppTextStyles.appBarTitle,
+        ),
         actions: [
           IconButton(
             onPressed: () {},
-            icon: const Icon(Icons.save_outlined, color: Colors.black),
+            icon: const Icon(Icons.save_outlined, color: Colors.black87),
           ),
         ],
       ),
@@ -40,15 +46,18 @@ class _ValuationStep4State extends State<ValuationStep4> {
         children: [
           Container(
             width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            color: const Color(0xFFEDE7DF),
-            child: Row(
+            padding:
+            const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            color: const Color(0xFFF1ECE6),
+            child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
+              children: [
                 Text("Step 4/7",
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
+                    style:
+                    TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
                 Text("Utilities & Services",
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
+                    style:
+                    TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
               ],
             ),
           ),
@@ -62,7 +71,6 @@ class _ValuationStep4State extends State<ValuationStep4> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-
                   _label("Electric Meter no. with Name"),
                   _card(
                     children: [
@@ -71,6 +79,7 @@ class _ValuationStep4State extends State<ValuationStep4> {
                         hint: "On Meter",
                         controller: meterOnMeterController,
                       ),
+                      const SizedBox(height: 12),
                       AppTextField(
                         hint: "On Bill",
                         controller: meterOnBillController,
@@ -85,6 +94,7 @@ class _ValuationStep4State extends State<ValuationStep4> {
                         hint: "On Meter",
                         controller: nameOnMeterController,
                       ),
+                      const SizedBox(height: 12),
                       AppTextField(
                         hint: "On Bill",
                         controller: nameOnBillController,
@@ -93,9 +103,9 @@ class _ValuationStep4State extends State<ValuationStep4> {
                   ),
 
                   _label("Electric Meter No."),
-                  _dropdown("Select road condition"),
+                  _dropdown("Select"),
 
-                  const SizedBox(height: 90),
+                  const SizedBox(height: 40),
                 ],
               ),
             ),
@@ -103,55 +113,16 @@ class _ValuationStep4State extends State<ValuationStep4> {
         ],
       ),
 
-      bottomNavigationBar: Container(
-        padding: const EdgeInsets.fromLTRB(16, 10, 16, 20),
-        color: AppColors.background,
-        child: Row(
-          children: [
-            Expanded(
-              child: OutlinedButton.icon(
-                onPressed: () => Navigator.pop(context),
-                icon: const Icon(Icons.arrow_back, size: 18),
-                label: const Text("Previous"),
-                style: OutlinedButton.styleFrom(
-                  backgroundColor: const Color(0xFFFFF3E0),
-                  foregroundColor: Colors.orange,
-                  side: const BorderSide(color: Color(0xFFFFF3E0)),
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                ),
-              ),
+      bottomNavigationBar: BottomActionButtons(
+        onPrevious: () => Navigator.pop(context),
+        onNext: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => const ValuationStep5(),
             ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => const ValuationStep5(),
-                    ),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  elevation: 0,
-                  backgroundColor: const Color(0xFFFFF3E0),
-                  foregroundColor: Colors.orange,
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                ),
-                child: const Text(
-                  "Next →",
-                  style: TextStyle(fontWeight: FontWeight.w600),
-                ),
-              ),
-            ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
@@ -166,8 +137,10 @@ class _ValuationStep4State extends State<ValuationStep4> {
   Widget _subLabel(String text) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 6),
-      child: Text(text,
-          style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
+      child: Text(
+        text,
+        style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+      ),
     );
   }
 
@@ -179,7 +152,10 @@ class _ValuationStep4State extends State<ValuationStep4> {
         color: Colors.white,
         borderRadius: BorderRadius.circular(14),
       ),
-      child: Column(children: children),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: children,
+      ),
     );
   }
 

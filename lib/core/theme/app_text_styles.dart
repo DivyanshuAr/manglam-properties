@@ -19,6 +19,12 @@ class AppTextStyles {
     color: AppColors.textPrimary,
   );
 
+  static const valution6 = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    color: AppColors.textPrimary2,
+  );
+
   static const cardTitle = TextStyle(
     fontSize: 15,
     fontWeight: FontWeight.w600,

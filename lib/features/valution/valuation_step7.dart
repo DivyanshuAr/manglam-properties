@@ -19,15 +19,20 @@ class _ValuationStep7State extends State<ValuationStep7> {
 
     return Scaffold(
       backgroundColor: AppColors.background,
+
       appBar: AppBar(
         backgroundColor: AppColors.background,
         elevation: 0,
+        centerTitle: true,
         leading: const BackButton(color: Colors.black),
-        title: const Text("Valuation Report"),
+        title: const Text(
+          "Valuation Report",
+          style: AppTextStyles.appBarTitle,
+        ),
         actions: [
           IconButton(
             onPressed: () {},
-            icon: const Icon(Icons.save_outlined, color: Colors.black),
+            icon: const Icon(Icons.save_outlined, color: Colors.black87),
           )
         ],
       ),
@@ -37,10 +42,10 @@ class _ValuationStep7State extends State<ValuationStep7> {
           Container(
             width: double.infinity,
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            color: const Color(0xFFEDE7DF),
-            child: Row(
+            color: const Color(0xFFF1ECE6),
+            child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
+              children: [
                 Text("Step 7/7",
                     style:
                     TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
@@ -69,6 +74,7 @@ class _ValuationStep7State extends State<ValuationStep7> {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(14),
+                      border: Border.all(color: const Color(0xFFE0E0E0)),
                     ),
                     child: const Text(
                       "By submitting this form, you agree to the following terms:\n"
@@ -115,7 +121,7 @@ class _ValuationStep7State extends State<ValuationStep7> {
                     ],
                   ),
 
-                  const SizedBox(height: 100),
+                  const SizedBox(height: 20),
                 ],
               ),
             ),
@@ -124,57 +130,70 @@ class _ValuationStep7State extends State<ValuationStep7> {
       ),
 
       bottomNavigationBar: Container(
-        padding: const EdgeInsets.fromLTRB(16, 10, 16, 20),
-        color: AppColors.background,
+        padding: const EdgeInsets.fromLTRB(16, 12, 16, 20),
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          border: Border(
+            top: BorderSide(color: Color(0xFFEAEAEA)),
+          ),
+        ),
         child: Row(
           children: [
             Expanded(
-              child: ElevatedButton.icon(
-                onPressed: () => Navigator.pop(context),
-                icon: const Icon(Icons.arrow_back),
-                label: const Text("Previous"),
-                style: ElevatedButton.styleFrom(
-                  elevation: 0,
-                  backgroundColor: const Color(0xFFFFF3E0),
-                  foregroundColor: Colors.orange,
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(6),
+              child: SizedBox(
+                height: 48,
+                child: ElevatedButton.icon(
+                  onPressed: () => Navigator.pop(context),
+                  icon: const Icon(Icons.arrow_back, size: 18),
+                  label: const Text("Previous"),
+                  style: ElevatedButton.styleFrom(
+                    elevation: 0,
+                    backgroundColor: const Color(0xFFE8DCC3),
+                    foregroundColor: Colors.orange,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                   ),
                 ),
               ),
             ),
-            const SizedBox(width: 12),
+            const SizedBox(width: 14),
             Expanded(
-              child: ElevatedButton(
-                onPressed: agree
-                    ? () {
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (_) => const Dashboard()),
-                        (route) => false,
-                  );
-                }
-                    : null,
-                style: ElevatedButton.styleFrom(
-                  elevation: 0,
-                  backgroundColor: const Color(0xFFFFF3E0),
-                  foregroundColor: Colors.orange,
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(6),
+              child: SizedBox(
+                height: 48,
+                child: ElevatedButton(
+                  onPressed: agree
+                      ? () {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const Dashboard(),
+                      ),
+                          (route) => false,
+                    );
+                  }
+                      : null,
+                  style: ElevatedButton.styleFrom(
+                    elevation: 0,
+                    backgroundColor: const Color(0xFFE0A43A),
+                    foregroundColor: Colors.black,
+                    disabledBackgroundColor: const Color(0xFFDDDDDD),
+                    disabledForegroundColor: Colors.grey,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                   ),
-                ),
-                child: const Text(
-                  "Submit Report",
-                  style: TextStyle(fontWeight: FontWeight.w600),
+                  child: const Text(
+                    "Submit",
+                    style: TextStyle(fontWeight: FontWeight.w600),
+                  ),
                 ),
               ),
             ),
-
           ],
         ),
       ),
+
     );
   }
 }

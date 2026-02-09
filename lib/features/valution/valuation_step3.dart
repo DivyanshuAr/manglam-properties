@@ -3,6 +3,7 @@ import 'package:manglam_engineers/features/valution/valuation_step4.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_text_styles.dart';
 import '../../core/widgets/app_textfield.dart';
+import '../../core/widgets/bottom_action_buttons.dart';
 
 class ValuationStep3 extends StatefulWidget {
   const ValuationStep3({super.key});
@@ -30,15 +31,20 @@ class _ValuationStep3State extends State<ValuationStep3> {
 
     return Scaffold(
       backgroundColor: AppColors.background,
+
       appBar: AppBar(
         backgroundColor: AppColors.background,
         elevation: 0,
+        centerTitle: true,
         leading: const BackButton(color: Colors.black),
-        title: const Text("Valuation Report"),
+        title: const Text(
+          "Valuation Report",
+          style: AppTextStyles.appBarTitle,
+        ),
         actions: [
           IconButton(
             onPressed: () {},
-            icon: const Icon(Icons.save_outlined, color: Colors.black),
+            icon: const Icon(Icons.save_outlined, color: Colors.black87),
           ),
         ],
       ),
@@ -47,15 +53,18 @@ class _ValuationStep3State extends State<ValuationStep3> {
         children: [
           Container(
             width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            color: const Color(0xFFEDE7DF),
-            child: Row(
+            padding:
+            const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            color: const Color(0xFFF1ECE6),
+            child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
+              children: [
                 Text("Step 3/7",
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
+                    style:
+                    TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
                 Text("Land & Building Details",
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
+                    style:
+                    TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
               ],
             ),
           ),
@@ -71,7 +80,6 @@ class _ValuationStep3State extends State<ValuationStep3> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-
                     _label("Age of Property (in years)"),
                     AppTextField(
                       hint: "Enter property age",
@@ -154,7 +162,7 @@ class _ValuationStep3State extends State<ValuationStep3> {
                     AppTextField(hint: "Hall", controller: TextEditingController()),
                     AppTextField(hint: "Bathroom", controller: TextEditingController()),
 
-                    const SizedBox(height: 90),
+                    const SizedBox(height: 40),
                   ],
                 ),
               ),
@@ -163,51 +171,14 @@ class _ValuationStep3State extends State<ValuationStep3> {
         ],
       ),
 
-      bottomNavigationBar: Container(
-        padding: const EdgeInsets.fromLTRB(16, 10, 16, 20),
-        color: AppColors.background,
-        child: Row(
-          children: [
-            Expanded(
-              child: OutlinedButton.icon(
-                onPressed: () => Navigator.pop(context),
-                icon: const Icon(Icons.arrow_back, size: 18),
-                label: const Text("Previous"),
-                style: OutlinedButton.styleFrom(
-                  backgroundColor: const Color(0xFFFFF3E0),
-                  foregroundColor: Colors.orange,
-                  side: const BorderSide(color: Color(0xFFFFF3E0)),
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => const ValuationStep4()),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  elevation: 0,
-                  backgroundColor: const Color(0xFFFFF3E0),
-                  foregroundColor: Colors.orange,
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                ),
-                child: const Text("Next →",
-                    style: TextStyle(fontWeight: FontWeight.w600)),
-              ),
-            ),
-          ],
-        ),
+      bottomNavigationBar: BottomActionButtons(
+        onPrevious: () => Navigator.pop(context),
+        onNext: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const ValuationStep4()),
+          );
+        },
       ),
     );
   }
@@ -228,7 +199,7 @@ class _ValuationStep3State extends State<ValuationStep3> {
   );
 
   Widget _dropdown(String hint) => Container(
-    margin: const EdgeInsets.only(bottom: 16),
+    margin: const EdgeInsets.only(bottom: 12),
     height: 50,
     padding: const EdgeInsets.symmetric(horizontal: 16),
     decoration: BoxDecoration(
@@ -245,24 +216,27 @@ class _ValuationStep3State extends State<ValuationStep3> {
     ),
   );
 
-  Widget _heightRow(TextEditingController c, bool add) => Row(
-    children: [
-      Expanded(child: _dropdown("Select Floor")),
-      const SizedBox(width: 10),
-      Expanded(
-        child: AppTextField(
-          hint: "Enter Height",
-          controller: c,
-          keyboardType: TextInputType.number,
+  Widget _heightRow(TextEditingController c, bool add) => Padding(
+    padding: const EdgeInsets.only(bottom: 12),
+    child: Row(
+      children: [
+        Expanded(child: _dropdown("Select Floor")),
+        const SizedBox(width: 10),
+        Expanded(
+          child: AppTextField(
+            hint: "Enter Height",
+            controller: c,
+            keyboardType: TextInputType.number,
+          ),
         ),
-      ),
-      const SizedBox(width: 8),
-      CircleAvatar(
-        radius: 20,
-        backgroundColor: Colors.white,
-        child: Icon(add ? Icons.add : Icons.delete, color: Colors.grey),
-      ),
-    ],
+        const SizedBox(width: 8),
+        CircleAvatar(
+          radius: 18,
+          backgroundColor: Colors.white,
+          child: Icon(add ? Icons.add : Icons.delete, color: Colors.grey),
+        ),
+      ],
+    ),
   );
 
   Widget _check(String t, bool v, Function(bool) fn) => Row(
@@ -278,9 +252,13 @@ class _ValuationStep3State extends State<ValuationStep3> {
     child: Row(
       children: [
         SizedBox(width: 60, child: Text(side)),
-        Expanded(child: AppTextField(hint: "Actual", controller: TextEditingController())),
+        Expanded(
+            child: AppTextField(
+                hint: "Actual", controller: TextEditingController())),
         const SizedBox(width: 10),
-        Expanded(child: AppTextField(hint: "Actual", controller: TextEditingController())),
+        Expanded(
+            child: AppTextField(
+                hint: "Actual", controller: TextEditingController())),
       ],
     ),
   );

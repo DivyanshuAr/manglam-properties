@@ -42,24 +42,29 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
             padding: const EdgeInsets.only(right: 16),
             child: TextButton(
               style: TextButton.styleFrom(
-                backgroundColor: AppColors.primary.withOpacity(0.1),
+                backgroundColor: const Color(0xFFFFE7C2),
+                foregroundColor: Colors.orange,
+                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
               ),
               onPressed: () {
                 showModalBottomSheet(
                   context: context,
                   isScrollControlled: true,
                   shape: const RoundedRectangleBorder(
-                    borderRadius:
-                    BorderRadius.vertical(top: Radius.circular(20)),
+                    borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
                   ),
                   builder: (_) => const ApplyLeaveSheet(),
                 );
               },
               child: const Text(
                 "Apply Leave",
-                style: TextStyle(color: AppColors.primary),
+                style: TextStyle(fontWeight: FontWeight.w600),
               ),
             ),
+
           )
         ],
       ),

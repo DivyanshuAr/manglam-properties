@@ -3,8 +3,56 @@ import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_text_styles.dart';
 import '../../core/widgets/app_button.dart';
 
-class ApplyLeaveSheet extends StatelessWidget {
+class ApplyLeaveSheet extends StatefulWidget {
   const ApplyLeaveSheet({super.key});
+
+  @override
+  State<ApplyLeaveSheet> createState() => _ApplyLeaveSheetState();
+}
+
+class _ApplyLeaveSheetState extends State<ApplyLeaveSheet> {
+  final fromDateController = TextEditingController();
+  final toDateController = TextEditingController();
+
+  DateTime fromDate = DateTime.now();
+  DateTime toDate = DateTime.now();
+
+  String formatDate(DateTime d) {
+    return "${d.day}/${d.month}/${d.year}";
+  }
+
+  int get totalDays {
+    return toDate.difference(fromDate).inDays + 1;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fromDateController.text = formatDate(fromDate);
+    toDateController.text = formatDate(toDate);
+  }
+
+  Future<void> pickDate(
+      BuildContext context, bool isFrom) async {
+    final picked = await showDatePicker(
+      context: context,
+      initialDate: isFrom ? fromDate : toDate,
+      firstDate: DateTime(2020),
+      lastDate: DateTime(2100),
+    );
+
+    if (picked != null) {
+      setState(() {
+        if (isFrom) {
+          fromDate = picked;
+          fromDateController.text = formatDate(picked);
+        } else {
+          toDate = picked;
+          toDateController.text = formatDate(picked);
+        }
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,19 +76,38 @@ class ApplyLeaveSheet extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            const Text("Apply Leave", style:TextStyle(fontSize: 20,fontWeight: FontWeight.bold)),
+
+            const Text(
+              "Apply Leave",
+              style:
+              TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 6),
+
             const Text(
               "Please provide the required details to request leave.",
               style: AppTextStyles.subText,
             ),
+
             const SizedBox(height: 16),
 
             Row(
               children: [
-                Expanded(child: _dateField("From Date")),
+                Expanded(
+                  child: _dateField(
+                    "From Date",
+                    fromDateController,
+                        () => pickDate(context, true),
+                  ),
+                ),
                 const SizedBox(width: 12),
-                Expanded(child: _dateField("To Date")),
+                Expanded(
+                  child: _dateField(
+                    "To Date",
+                    toDateController,
+                        () => pickDate(context, false),
+                  ),
+                ),
               ],
             ),
 
@@ -57,9 +124,14 @@ class ApplyLeaveSheet extends StatelessWidget {
             ),
 
             const SizedBox(height: 12),
-            const Text("No. of Days: 0"),
+
+            Text(
+              "No. of Days: $totalDays",
+              style: const TextStyle(fontWeight: FontWeight.w600),
+            ),
 
             const SizedBox(height: 16),
+
             Row(
               children: [
                 Expanded(
@@ -76,16 +148,22 @@ class ApplyLeaveSheet extends StatelessWidget {
                   ),
                 ),
               ],
-            )
+            ),
           ],
         ),
       ),
     );
   }
 
-  Widget _dateField(String hint) {
+  Widget _dateField(
+      String hint,
+      TextEditingController controller,
+      VoidCallback onTap,
+      ) {
     return TextField(
+      controller: controller,
       readOnly: true,
+      onTap: onTap,
       decoration: InputDecoration(
         hintText: hint,
         suffixIcon: const Icon(Icons.calendar_today_outlined),
