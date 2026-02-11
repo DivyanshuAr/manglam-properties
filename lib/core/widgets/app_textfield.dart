@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../theme/app_colors.dart';
 
 class AppTextField extends StatelessWidget {
@@ -14,6 +15,7 @@ class AppTextField extends StatelessWidget {
   final VoidCallback? onTap;
   final ValueChanged<String>? onChanged;
   final FormFieldValidator<String>? validator;
+  final List<TextInputFormatter>? inputFormatters;
 
   const AppTextField({
     super.key,
@@ -29,6 +31,7 @@ class AppTextField extends StatelessWidget {
     this.onTap,
     this.onChanged,
     this.validator,
+    this.inputFormatters,
   });
 
   @override
@@ -44,6 +47,7 @@ class AppTextField extends StatelessWidget {
       onTap: onTap,
       onChanged: onChanged,
       validator: validator,
+      inputFormatters: inputFormatters,
       decoration: InputDecoration(
         hintText: hint,
         counterText: "",
