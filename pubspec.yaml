@@ -71,6 +71,11 @@ flutter:
     - assets/icons/home.svg
     - assets/icons/payments.svg
     - assets/icons/account_circle.svg
+    - assets/icons/leaderboard_inactive.svg
+    - assets/icons/calendar_check_inactive.svg
+    - assets/icons/home_inactive.svg
+    - assets/icons/payments_inactive.svg
+    - assets/icons/account_circle_inactive.svg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../core/theme/app_colors.dart';
-import '../leads/lead_management.dart';
 import '../attendance/attendance_screen.dart';
+import '../expenses/expenses_screen.dart';
+import '../profile/profile_screen.dart';
+import '../leads/lead_management.dart';
 import 'dashboard_home.dart';
 
 class Dashboard extends StatefulWidget {
@@ -19,8 +21,8 @@ class _DashboardState extends State<Dashboard> {
     LeadManagementScreen(),
     AttendanceScreen(),
     DashboardHomeScreen(),
-    Center(child: Text("Expenses Screen")),
-    Center(child: Text("Profile Screen")),
+    ExpensesScreen(),
+    ProfileScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -40,51 +42,78 @@ class _DashboardState extends State<Dashboard> {
             BoxShadow(color: Colors.black12, blurRadius: 8),
           ],
         ),
-        child: BottomNavigationBar(
-          backgroundColor: Colors.white,
-          currentIndex: _selectedIndex,
-          onTap: _onItemTapped,
-          type: BottomNavigationBarType.fixed,
-          showUnselectedLabels: true,
-          elevation: 0,
-          selectedItemColor: AppColors.accent,
-          unselectedItemColor: Colors.grey,
-          items: [
-            _navItem("assets/icons/leaderboard.svg", "Leads", 0),
-            _navItem("assets/icons/calendar_check.svg", "Attendance", 1),
-            _navItem("assets/icons/home.svg", "Home", 2),
-            _navItem("assets/icons/payments.svg", "Expenses", 3),
-            _navItem("assets/icons/account_circle.svg", "Profile", 4),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            _navItem(
+              index: 0,
+              label: "Leads",
+              inactiveIcon: "assets/icons/leaderboard.svg",
+              activeIcon: "assets/icons/leaderboard_inactive.svg",
+            ),
+            _navItem(
+              index: 1,
+              label: "Attendance",
+              inactiveIcon: "assets/icons/calendar_check.svg",
+              activeIcon: "assets/icons/calendar_check_inactive.svg",
+            ),
+            _navItem(
+              index: 2,
+              label: "Home",
+              inactiveIcon: "assets/icons/home.svg",
+              activeIcon: "assets/icons/home_inactive.svg",
+            ),
+            _navItem(
+              index: 3,
+              label: "Expenses",
+              inactiveIcon: "assets/icons/payments.svg",
+              activeIcon: "assets/icons/payments_inactive.svg",
+            ),
+            _navItem(
+              index: 4,
+              label: "Profile",
+              inactiveIcon: "assets/icons/account_circle.svg",
+              activeIcon: "assets/icons/account_circle_inactive.svg",
+            ),
           ],
         ),
       ),
     );
   }
 
-  BottomNavigationBarItem _navItem(String icon, String label, int index) {
+  Widget _navItem({
+    required int index,
+    required String label,
+    required String activeIcon,
+    required String inactiveIcon,
+  }) {
     final selected = _selectedIndex == index;
 
-    return BottomNavigationBarItem(
-      label: label,
-      icon: Column(
+    return GestureDetector(
+      onTap: () => _onItemTapped(index),
+      child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           AnimatedContainer(
-            duration: const Duration(milliseconds: 250),
+            duration: const Duration(milliseconds: 200),
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
             decoration: BoxDecoration(
-              color:
-              selected ? AppColors.accent.withOpacity(0.15) : Colors.transparent,
+              color: selected ? const Color(0xFFFFF1D6) : Colors.transparent,
               borderRadius: BorderRadius.circular(20),
             ),
             child: SvgPicture.asset(
-              icon,
+              selected ? activeIcon : inactiveIcon,
               width: 22,
               height: 22,
-              colorFilter: ColorFilter.mode(
-                selected ? AppColors.accent : Colors.grey,
-                BlendMode.srcIn,
-              ),
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 12,
+              color: selected ? AppColors.accent : Colors.grey,
+              fontWeight: selected ? FontWeight.w600 : FontWeight.w400,
             ),
           ),
         ],
