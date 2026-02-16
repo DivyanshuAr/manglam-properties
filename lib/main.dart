@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'features/auth/login_screen.dart';
+import 'features/auth/splash_screen.dart';
 
 void main() {
   runApp(const ManglamApp());
@@ -16,7 +16,7 @@ class ManglamApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: false,
       ),
-      home: const LoginScreen(),
+      home: const SplashScreen(),
     );
   }
 }

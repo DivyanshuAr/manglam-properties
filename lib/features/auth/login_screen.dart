@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:manglam_engineers/features/auth/forgot_pin_screen.dart';
-import 'package:manglam_engineers/features/auth/register_screen.dart';
+import 'package:manglam_engineers/features/auth/register/register_step1_screen.dart';
 import 'package:manglam_engineers/features/dashboard/dashboard_screen.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_text_styles.dart';
@@ -36,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F5F5),
+      backgroundColor: AppColors.background,
       body: SafeArea(
         bottom: false,
         child: LayoutBuilder(
@@ -47,34 +47,42 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: IntrinsicHeight(
                   child: Column(
                     children: [
-                      Expanded(
+                      /// ================= FIGMA STYLE TOP =================
+                      SizedBox(
+                        height: size.height * .42,
+                        width: double.infinity,
                         child: Stack(
-                          alignment: Alignment.bottomCenter,
+                          alignment: Alignment.center,
                           children: [
-                            Positioned(
-                              bottom: 20,
-                              child: Container(
-                                height: size.height * 0.24,
-                                width: size.height * 0.24,
-                                decoration: const BoxDecoration(
-                                  color: Color(0xFFE8E1DA),
-                                  shape: BoxShape.circle,
+                            /// cream base
+                            Container(color: const Color(0xFFF6E7C1)),
+
+                            /// house background
+                            Positioned.fill(
+                              child: Opacity(
+                                opacity: .35,
+                                child: Image.asset(
+                                  "assets/bg.png",
+                                  fit: BoxFit.contain,
                                 ),
                               ),
                             ),
-                            SvgPicture.asset(
-                              "assets/login.svg",
-                              height: size.height * 0.30,
-                              fit: BoxFit.contain,
+
+                            /// logo
+                            Image.asset(
+                              "assets/logo/logo.png",
+                              height: 60,
                             ),
                           ],
                         ),
                       ),
+
+                      /// ================= BOTTOM CARD =================
                       Container(
                         width: double.infinity,
-                        padding: const EdgeInsets.fromLTRB(24, 40, 24, 30),
+                        padding: const EdgeInsets.fromLTRB(24, 32, 24, 24),
                         decoration: const BoxDecoration(
-                          color: AppColors.white,
+                          color: Colors.white,
                           borderRadius: BorderRadius.vertical(
                             top: Radius.circular(30),
                           ),
@@ -91,13 +99,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                 style: AppTextStyles.subText,
                               ),
                               const SizedBox(height: 30),
+
+                              /// Mobile
                               AppTextField(
                                 hint: "Enter Mobile Number",
                                 controller: mobileController,
                                 keyboardType: TextInputType.phone,
                                 maxLength: 10,
-                                // Ye line sirf digits allow karegi
-                                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                                inputFormatters:  [
+                                  FilteringTextInputFormatter.digitsOnly
+                                ],
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return "Mobile number required";
@@ -109,18 +120,24 @@ class _LoginScreenState extends State<LoginScreen> {
                                 },
                                 onChanged: (_) => setState(() {}),
                               ),
+
                               const SizedBox(height: 16),
+
+                              /// PIN
                               AppTextField(
                                 hint: "Enter 4 digit PIN",
                                 controller: pinController,
                                 keyboardType: TextInputType.number,
                                 maxLength: 4,
                                 obscureText: true,
-                                // PIN ke liye bhi sirf numbers
-                                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                                inputFormatters:  [
+                                  FilteringTextInputFormatter.digitsOnly
+                                ],
                                 onChanged: (_) => setState(() {}),
                               ),
+
                               const SizedBox(height: 8),
+
                               Align(
                                 alignment: Alignment.centerRight,
                                 child: TextButton(
@@ -128,7 +145,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (_) => const ForgotPinScreen(),
+                                        builder: (_) =>
+                                        const ForgotPinScreen(),
                                       ),
                                     );
                                   },
@@ -141,7 +159,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                 ),
                               ),
+
                               const SizedBox(height: 24),
+
+                              /// LOGIN BUTTON
                               AppButton(
                                 title: "Login",
                                 isEnabled: isFormFilled,
@@ -156,7 +177,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                   }
                                 },
                               ),
+
                               const SizedBox(height: 24),
+
+                              /// REGISTER
                               Center(
                                 child: Wrap(
                                   children: [
@@ -166,7 +190,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (_) => const RegisterScreen(),
+                                            builder: (_) =>
+                                            const RegisterScreen(),
                                           ),
                                         );
                                       },
@@ -181,7 +206,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ],
                                 ),
                               ),
-                              SizedBox(height: MediaQuery.of(context).padding.bottom),
+                              SizedBox(
+                                height:
+                                MediaQuery.of(context).padding.bottom,
+                              ),
                             ],
                           ),
                         ),
