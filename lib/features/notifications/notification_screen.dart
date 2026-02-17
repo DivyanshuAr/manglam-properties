@@ -5,7 +5,6 @@ class NotificationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // List simulate kar rahi hai future API response data ko
     final List<Map<String, dynamic>> notifications = [
       {
         "icon": Icons.calendar_month_outlined,
@@ -55,7 +54,7 @@ class NotificationScreen extends StatelessWidget {
     ];
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F8F8), // Figma background
+      backgroundColor: const Color(0xFFF8F8F8),
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
@@ -119,7 +118,7 @@ class NotificationTile extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white, // Card background white
+        color: Colors.white,
         borderRadius: BorderRadius.circular(16),
         boxShadow: highlight
             ? [

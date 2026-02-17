@@ -17,17 +17,17 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  int _selectedIndex = 2; // Default to DashboardHomeScreen
+  int _selectedIndex = 2;
 
-  // Screens list matched with indices 0 to 6
+
   final List<Widget> _screens = [
-    const LeadManagementScreen(), // 0
-    const AttendanceScreen(),     // 1
-    const DashboardHomeScreen(),  // 2
-    const DashboardHomeV2(),      // 3
-    const ExpensesScreen(),       // 4
-    const ExpensesScreenV2(),     // 5
-    const ProfileScreen(),        // 6
+    const LeadManagementScreen(),
+    const AttendanceScreen(),
+    const DashboardHomeScreen(),
+    const DashboardHomeV2(),
+    const ExpensesScreen(),
+    const ExpensesScreenV2(),
+    const ProfileScreen(),
   ];
 
   void _onItemTapped(int index) {

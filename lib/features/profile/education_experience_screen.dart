@@ -40,7 +40,7 @@ class EducationExperienceScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background, // outer bg
+      backgroundColor: AppColors.background,
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
@@ -60,7 +60,7 @@ class EducationExperienceScreen extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.all(18),
           decoration: BoxDecoration(
-            color: Colors.white, // white card like figma
+            color: Colors.white,
             borderRadius: BorderRadius.circular(20),
           ),
           child: Column(

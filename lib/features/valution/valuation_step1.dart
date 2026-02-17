@@ -42,7 +42,7 @@ class _ValuationStep1State extends State<ValuationStep1> {
     return Scaffold(
       backgroundColor: AppColors.background,
 
-      ///  APP BAR
+
       appBar: AppBar(
         backgroundColor: AppColors.background,
         elevation: 0,
@@ -64,7 +64,7 @@ class _ValuationStep1State extends State<ValuationStep1> {
 
       body: Column(
         children: [
-          ///  STEP HEADER
+
           Container(
             width: double.infinity,
             padding:
@@ -83,7 +83,7 @@ class _ValuationStep1State extends State<ValuationStep1> {
             ),
           ),
 
-          ///  FORM
+
           Expanded(
             child: SingleChildScrollView(
               padding: EdgeInsets.symmetric(
@@ -95,7 +95,7 @@ class _ValuationStep1State extends State<ValuationStep1> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    /// Bank
+
                     const Text("Name of the Bank"),
                     const SizedBox(height: 6),
                     AppTextField(
@@ -109,7 +109,7 @@ class _ValuationStep1State extends State<ValuationStep1> {
 
                     const SizedBox(height: 16),
 
-                    /// Date
+
                     const Text("Date of Technical Visit"),
                     const SizedBox(height: 6),
                     AppTextField(
@@ -125,7 +125,7 @@ class _ValuationStep1State extends State<ValuationStep1> {
 
                     const SizedBox(height: 16),
 
-                    /// Customer
+
                     const Text("Name of the Customer"),
                     const SizedBox(height: 6),
                     AppTextField(
@@ -137,7 +137,7 @@ class _ValuationStep1State extends State<ValuationStep1> {
 
                     const SizedBox(height: 16),
 
-                    /// Mobile
+
                     const Text("Mobile Number"),
                     const SizedBox(height: 6),
                     AppTextField(
@@ -153,7 +153,7 @@ class _ValuationStep1State extends State<ValuationStep1> {
 
                     const SizedBox(height: 16),
 
-                    /// Owner
+
                     const Text("Owner’s Name"),
                     const SizedBox(height: 6),
                     AppTextField(
@@ -165,7 +165,7 @@ class _ValuationStep1State extends State<ValuationStep1> {
 
                     const SizedBox(height: 16),
 
-                    /// Meet person
+
                     const Text("Person Meet Name and Contact No."),
                     const SizedBox(height: 6),
                     AppTextField(

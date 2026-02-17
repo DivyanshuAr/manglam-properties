@@ -38,7 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
       backgroundColor: const Color(0xFFFFF8E9),
       body: Stack(
         children: [
-          /// FIGMA BACKGROUND DESIGN (bg.png)
+
           Positioned(
             top: 0,
             left: 0,
@@ -55,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 const SizedBox(height: 60),
 
-                /// LOGO SECTION (main.png & main2.png side by side)
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -73,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 const Spacer(),
 
-                /// LOGIN BOTTOM CARD
+
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.fromLTRB(24, 32, 24, 24),
@@ -97,7 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         const SizedBox(height: 30),
 
-                        /// Mobile Field Logic
+
                         AppTextField(
                           hint: "Enter Mobile Number",
                           controller: mobileController,
@@ -120,7 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                         const SizedBox(height: 16),
 
-                        /// PIN Field Logic
+
                         AppTextField(
                           hint: "Enter 4 digit PIN",
                           controller: pinController,
@@ -156,7 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                         const SizedBox(height: 10),
 
-                        /// LOGIN BUTTON Logic
+
                         AppButton(
                           title: "Login",
                           isEnabled: isFormFilled,
@@ -174,7 +174,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                         const SizedBox(height: 24),
 
-                        /// REGISTER Logic
+
                         Center(
                           child: Wrap(
                             children: [

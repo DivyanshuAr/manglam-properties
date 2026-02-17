@@ -363,7 +363,7 @@ class _RegisterStep3ScreenState extends State<RegisterStep3Screen> {
         child: DropdownButton<String>(
           value: value,
           isExpanded: true,
-          menuMaxHeight: 300, // Isse popup list ki height control hogi aur scrollable rahega
+          menuMaxHeight: 300,
           hint: Text(
             hint,
             style: const TextStyle(

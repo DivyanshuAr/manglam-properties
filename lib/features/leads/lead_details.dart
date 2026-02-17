@@ -123,7 +123,7 @@ class LeadDetailsScreen extends StatelessWidget {
             ),
           ),
 
-          /// Bottom Buttons
+
           Container(
             padding: const EdgeInsets.fromLTRB(16, 12, 16, 20),
             decoration: const BoxDecoration(

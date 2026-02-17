@@ -99,7 +99,7 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            /// ===== TOP IMAGE AREA =====
+            //TOP IMAGE AREA
             SizedBox(
               height: height * .42,
               width: double.infinity,
@@ -124,7 +124,7 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
               ),
             ),
 
-            /// ===== BOTTOM CARD =====
+            //BOTTOM CARD
             Expanded(
               child: Container(
                 width: double.infinity,
