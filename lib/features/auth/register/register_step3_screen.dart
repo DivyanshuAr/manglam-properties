@@ -36,8 +36,7 @@ class _RegisterStep3ScreenState extends State<RegisterStep3Screen> {
       ),
       filled: true,
       fillColor: Colors.white,
-      contentPadding:
-      const EdgeInsets.symmetric(horizontal: 14, vertical: 16),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 16),
       suffixIcon: suffix,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
@@ -74,8 +73,7 @@ class _RegisterStep3ScreenState extends State<RegisterStep3Screen> {
     if (to == null) return;
 
     periodController.text =
-    "${from.day}/${from.month}/${from.year} - "
-        "${to.day}/${to.month}/${to.year}";
+    "${from.day}/${from.month}/${from.year} - ${to.day}/${to.month}/${to.year}";
   }
 
   @override
@@ -98,8 +96,7 @@ class _RegisterStep3ScreenState extends State<RegisterStep3Screen> {
           children: [
             Expanded(
               child: SingleChildScrollView(
-                padding:
-                const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -120,41 +117,54 @@ class _RegisterStep3ScreenState extends State<RegisterStep3Screen> {
                       ),
                     ),
                     const SizedBox(height: 16),
-
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 14, vertical: 12),
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                       decoration: BoxDecoration(
-                        color: const Color(0xFFFFF3E0),
+                        color: const Color(0xFFFFF8E9),
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
-                          color: const Color(0xFFE5E5E5),
+                          color: const Color(0xFFD6B36A),
+                          width: 1.0,
                         ),
                       ),
-                      child: const Row(
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
+                          const Text(
                             "Step Number",
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
+                              color: Color(0xFF5C5C5C),
                             ),
                           ),
-                          Text(
-                            "3/5",
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.orange,
+                          RichText(
+                            text: const TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: "3",
+                                  style: TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w700,
+                                    color: Color(0xFFC9A44D),
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: "/5",
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                    color: Color(0xFFC9A44D),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],
                       ),
                     ),
-
                     const SizedBox(height: 16),
-
                     Container(
                       width: double.infinity,
                       padding: const EdgeInsets.all(16),
@@ -173,56 +183,43 @@ class _RegisterStep3ScreenState extends State<RegisterStep3Screen> {
                             ),
                           ),
                           const SizedBox(height: 16),
-
                           Text("Highest Qualification", style: labelStyle),
                           const SizedBox(height: 8),
                           _dropdownQualification(),
-
                           const SizedBox(height: 16),
                           Text("Institute / University", style: labelStyle),
                           const SizedBox(height: 8),
                           TextField(
                             controller: instituteController,
-                            decoration: inputDecoration(
-                                "Enter Institute / University Name"),
+                            decoration: inputDecoration("Enter Institute / University Name"),
                           ),
-
                           const SizedBox(height: 16),
                           Text("Year of Passing", style: labelStyle),
                           const SizedBox(height: 8),
                           _dropdownYear(),
-
                           const SizedBox(height: 16),
-                          Text("Total Work Experience (in Years)",
-                              style: labelStyle),
+                          Text("Total Work Experience (in Years)", style: labelStyle),
                           const SizedBox(height: 8),
                           TextField(
                             controller: experienceController,
-                            decoration:
-                            inputDecoration("Enter Experience"),
+                            decoration: inputDecoration("Enter Experience"),
                           ),
-
                           const SizedBox(height: 16),
                           Text("Previous Company Name", style: labelStyle),
                           const SizedBox(height: 8),
                           TextField(
                             controller: companyController,
-                            decoration: inputDecoration(
-                                "Enter Previous Company Name"),
+                            decoration: inputDecoration("Enter Previous Company Name"),
                           ),
-
                           const SizedBox(height: 16),
                           Text("Designation", style: labelStyle),
                           const SizedBox(height: 8),
                           TextField(
                             controller: designationController,
-                            decoration: inputDecoration(
-                                "Enter Designation in Previous Company"),
+                            decoration: inputDecoration("Enter Designation in Previous Company"),
                           ),
-
                           const SizedBox(height: 16),
-                          Text("Employment Period (From–To)",
-                              style: labelStyle),
+                          Text("Employment Period (From–To)", style: labelStyle),
                           const SizedBox(height: 8),
                           TextField(
                             controller: periodController,
@@ -236,15 +233,13 @@ class _RegisterStep3ScreenState extends State<RegisterStep3Screen> {
                               ),
                             ),
                           ),
-
                           const SizedBox(height: 16),
                           Text("Reason for Leaving", style: labelStyle),
                           const SizedBox(height: 8),
                           TextField(
                             controller: reasonController,
                             maxLines: 3,
-                            decoration:
-                            inputDecoration("Enter Reason for Leaving"),
+                            decoration: inputDecoration("Enter Reason for Leaving"),
                           ),
                         ],
                       ),
@@ -253,21 +248,24 @@ class _RegisterStep3ScreenState extends State<RegisterStep3Screen> {
                 ),
               ),
             ),
-
             Container(
               padding: const EdgeInsets.fromLTRB(16, 10, 16, 16),
+              color: AppColors.background,
               child: Row(
                 children: [
                   Expanded(
                     child: _btn(
-                      text: "← Previous",
+                      text: "Previous",
+                      icon: Icons.arrow_back,
                       onTap: () => Navigator.pop(context),
                     ),
                   ),
                   const SizedBox(width: 14),
                   Expanded(
                     child: _btn(
-                      text: "Next →",
+                      text: "Next",
+                      icon: Icons.arrow_forward,
+                      isForward: true,
                       onTap: () {
                         Navigator.push(
                           context,
@@ -287,24 +285,40 @@ class _RegisterStep3ScreenState extends State<RegisterStep3Screen> {
     );
   }
 
-  Widget _btn({required String text, required VoidCallback onTap}) {
+  Widget _btn({required String text, required IconData icon, bool isForward = false, required VoidCallback onTap}) {
     return Container(
       height: 56,
       decoration: BoxDecoration(
-        color: const Color(0xFFFFF3E0),
-        borderRadius: BorderRadius.circular(14),
+        color: const Color(0xFFFFF8E9),
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
       child: InkWell(
-        borderRadius: BorderRadius.circular(14),
+        borderRadius: BorderRadius.circular(16),
         onTap: onTap,
         child: Center(
-          child: Text(
-            text,
-            style: const TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.w600,
-              color: Colors.orange,
-            ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (!isForward) Icon(icon, size: 20, color: const Color(0xFFF8A709)),
+              if (!isForward) const SizedBox(width: 8),
+              Text(
+                text,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFFF8A709),
+                ),
+              ),
+              if (isForward) const SizedBox(width: 8),
+              if (isForward) Icon(icon, size: 20, color: const Color(0xFFF8A709)),
+            ],
           ),
         ),
       ),
@@ -345,27 +359,29 @@ class _RegisterStep3ScreenState extends State<RegisterStep3Screen> {
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: const Color(0xFFE5E5E5)),
       ),
-      child: DropdownButton<String>(
-        value: value,
-        isExpanded: true,
-        underline: const SizedBox(),
-        hint: Text(
-          hint,
-          style: const TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-            color: Color(0xFF9A9A9A),
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton<String>(
+          value: value,
+          isExpanded: true,
+          menuMaxHeight: 300, // Isse popup list ki height control hogi aur scrollable rahega
+          hint: Text(
+            hint,
+            style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              color: Color(0xFF9A9A9A),
+            ),
           ),
+          items: items
+              .map(
+                (e) => DropdownMenuItem(
+              value: e,
+              child: Text(e),
+            ),
+          )
+              .toList(),
+          onChanged: onChanged,
         ),
-        items: items
-            .map(
-              (e) => DropdownMenuItem(
-            value: e,
-            child: Text(e),
-          ),
-        )
-            .toList(),
-        onChanged: onChanged,
       ),
     );
   }

@@ -3,13 +3,14 @@ import 'app_colors.dart';
 
 class AppTextStyles {
   static const heading = TextStyle(
-    fontSize: 22,
-    fontWeight: FontWeight.bold,
+    fontSize: 20,
+    fontWeight: FontWeight.w600,
     color: AppColors.textPrimary,
   );
 
   static const subText = TextStyle(
-    fontSize: 14,
+    fontSize: 13,
+    fontWeight: FontWeight.w400,
     color: AppColors.textSecondary,
   );
 
@@ -19,10 +20,10 @@ class AppTextStyles {
     color: AppColors.textPrimary,
   );
 
-  static const valution6 = TextStyle(
+  static final valution6 = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w600,
-    color: AppColors.textPrimary2,
+    color: AppColors.textPrimary,
   );
 
   static const cardTitle = TextStyle(
@@ -32,7 +33,8 @@ class AppTextStyles {
   );
 
   static const label = TextStyle(
-    fontSize: 12,
+    fontSize: 13,
+    fontWeight: FontWeight.w500,
     color: AppColors.textSecondary,
   );
 
@@ -48,10 +50,9 @@ class AppTextStyles {
     color: AppColors.textPrimary,
   );
 
-  // 🔥 ADD THESE TWO (for Attendance UI)
-
   static const caption = TextStyle(
     fontSize: 12,
+    fontWeight: FontWeight.w400,
     color: AppColors.textSecondary,
   );
 

@@ -72,8 +72,11 @@ class _RegisterStep4ScreenState extends State<RegisterStep4Screen> {
                     ),
                   ),
                 ),
-                const Icon(Icons.image_outlined,
-                    color: Colors.orange, size: 20),
+                const Icon(
+                  Icons.image_outlined,
+                  color: Color(0xFFF8A709),
+                  size: 20,
+                ),
               ],
             ),
           ),
@@ -101,8 +104,7 @@ class _RegisterStep4ScreenState extends State<RegisterStep4Screen> {
           children: [
             Expanded(
               child: SingleChildScrollView(
-                padding:
-                const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -125,32 +127,47 @@ class _RegisterStep4ScreenState extends State<RegisterStep4Screen> {
                     ),
                     const SizedBox(height: 16),
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 14, vertical: 12),
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                       decoration: BoxDecoration(
-                        color: const Color(0xFFFFF3E0),
+                        color: const Color(0xFFFFF8E9),
                         borderRadius: BorderRadius.circular(12),
-                        border:
-                        Border.all(color: const Color(0xFFE5E5E5)),
+                        border: Border.all(
+                          color: const Color(0xFFD6B36A),
+                          width: 1.0,
+                        ),
                       ),
                       child: Row(
-                        mainAxisAlignment:
-                        MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Text(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
                             "Step Number",
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
-                              color: Colors.black,
+                              color: Color(0xFF5C5C5C),
                             ),
                           ),
-                          Text(
-                            "4/5",
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.orange,
+                          RichText(
+                            text: const TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: "4",
+                                  style: TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w700,
+                                    color: Color(0xFFC9A44D),
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: "/5",
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                    color: Color(0xFFC9A44D),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],
@@ -165,8 +182,7 @@ class _RegisterStep4ScreenState extends State<RegisterStep4Screen> {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Column(
-                        crossAxisAlignment:
-                        CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
                             "Document Upload",
@@ -203,8 +219,7 @@ class _RegisterStep4ScreenState extends State<RegisterStep4Screen> {
                           ),
                           const SizedBox(height: 16),
                           uploadTile(
-                            title:
-                            "Experience / Relieving Letter (if any)",
+                            title: "Experience / Relieving Letter (if any)",
                             file: experience,
                             onTap: () => pick((f) => experience = f),
                           ),
@@ -222,84 +237,77 @@ class _RegisterStep4ScreenState extends State<RegisterStep4Screen> {
               ),
             ),
             Container(
-              padding:
-              const EdgeInsets.fromLTRB(16, 10, 16, 16),
+              padding: const EdgeInsets.fromLTRB(16, 10, 16, 16),
               color: AppColors.background,
               child: Row(
                 children: [
                   Expanded(
-                    child: Container(
-                      height: 56,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFFFF3E0),
-                        borderRadius: BorderRadius.circular(14),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.06),
-                            blurRadius: 6,
-                            offset: const Offset(0, 3),
-                          )
-                        ],
-                      ),
-                      child: InkWell(
-                        borderRadius: BorderRadius.circular(14),
-                        onTap: () => Navigator.pop(context),
-                        child: const Center(
-                          child: Text(
-                            "← Previous",
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.orange,
-                            ),
-                          ),
-                        ),
-                      ),
+                    child: _btn(
+                      text: "Previous",
+                      icon: Icons.arrow_back,
+                      onTap: () => Navigator.pop(context),
                     ),
                   ),
                   const SizedBox(width: 14),
                   Expanded(
-                    child: Container(
-                      height: 56,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFFFF3E0),
-                        borderRadius: BorderRadius.circular(14),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.06),
-                            blurRadius: 6,
-                            offset: const Offset(0, 3),
-                          )
-                        ],
-                      ),
-                      child: InkWell(
-                        borderRadius: BorderRadius.circular(14),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) =>
-                              const RegisterStep5Screen(),
-                            ),
-                          );
-                        },
-                        child: const Center(
-                          child: Text(
-                            "Next →",
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.orange,
-                            ),
+                    child: _btn(
+                      text: "Next",
+                      icon: Icons.arrow_forward,
+                      isForward: true,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const RegisterStep5Screen(),
                           ),
-                        ),
-                      ),
+                        );
+                      },
                     ),
                   ),
                 ],
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _btn({required String text, required IconData icon, bool isForward = false, required VoidCallback onTap}) {
+    return Container(
+      height: 56,
+      decoration: BoxDecoration(
+        color: const Color(0xFFFFF8E9),
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(16),
+        onTap: onTap,
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (!isForward) Icon(icon, size: 20, color: const Color(0xFFF8A709)),
+              if (!isForward) const SizedBox(width: 8),
+              Text(
+                text,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFFF8A709),
+                ),
+              ),
+              if (isForward) const SizedBox(width: 8),
+              if (isForward) Icon(icon, size: 20, color: const Color(0xFFF8A709)),
+            ],
+          ),
         ),
       ),
     );

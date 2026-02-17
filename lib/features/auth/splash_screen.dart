@@ -12,12 +12,10 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
   late AnimationController controller;
-
   late Animation<double> scaleAnim;
   late Animation<Offset> moveAnim;
   late Animation<double> nameOpacity;
   late Animation<Offset> nameSlide;
-
   bool startAnimation = false;
 
   @override
@@ -26,53 +24,49 @@ class _SplashScreenState extends State<SplashScreen>
 
     controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1800),
+      duration: const Duration(milliseconds: 2000),
     );
 
-    /// M big → small
     scaleAnim = TweenSequence<double>([
       TweenSequenceItem(
-        tween: Tween(begin: 1.8, end: 1.8),
+        tween: Tween(begin: 0.0, end: 1.5).chain(CurveTween(curve: Curves.easeOutBack)),
+        weight: 40,
+      ),
+      TweenSequenceItem(
+        tween: Tween(begin: 1.5, end: 1.0),
         weight: 30,
       ),
       TweenSequenceItem(
-        tween: Tween(begin: 1.8, end: 1.0),
-        weight: 40,
+        tween: Tween(begin: 1.0, end: 1.0),
+        weight: 30,
       ),
-    ]).animate(
-      CurvedAnimation(parent: controller, curve: Curves.ease),
-    );
+    ]).animate(controller);
 
-    /// M move center → left
     moveAnim = TweenSequence<Offset>([
       TweenSequenceItem(
         tween: Tween(begin: Offset.zero, end: Offset.zero),
-        weight: 30,
+        weight: 70,
       ),
       TweenSequenceItem(
-        tween: Tween(begin: Offset.zero, end: const Offset(-0.25, 0)),
-        weight: 40,
+        tween: Tween(begin: Offset.zero, end: const Offset(-0.1, 0)),
+        weight: 30,
       ),
-    ]).animate(
-      CurvedAnimation(parent: controller, curve: Curves.ease),
-    );
+    ]).animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut));
 
-    /// Name fade
     nameOpacity = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(
         parent: controller,
-        curve: const Interval(0.55, 0.85, curve: Curves.ease),
+        curve: const Interval(0.70, 0.95, curve: Curves.easeIn),
       ),
     );
 
-    /// Name slide
     nameSlide = Tween<Offset>(
-      begin: const Offset(0.5, 0),
+      begin: const Offset(0.2, 0),
       end: Offset.zero,
     ).animate(
       CurvedAnimation(
         parent: controller,
-        curve: const Interval(0.55, 0.85, curve: Curves.easeOut),
+        curve: const Interval(0.70, 0.95, curve: Curves.easeOut),
       ),
     );
 
@@ -80,16 +74,11 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   void start() async {
-    /// STEP 1 → only gradient screen
-    await Future.delayed(const Duration(milliseconds: 700));
+    await Future.delayed(const Duration(milliseconds: 500));
+    if (mounted) setState(() => startAnimation = true);
 
-    setState(() => startAnimation = true);
-
-    /// STEP 2 & 3 → run animation
     await controller.forward();
-
-    /// STEP 4 → go onboarding
-    await Future.delayed(const Duration(milliseconds: 600));
+    await Future.delayed(const Duration(milliseconds: 800));
 
     if (mounted) {
       Navigator.pushReplacement(
@@ -127,8 +116,8 @@ class _SplashScreenState extends State<SplashScreen>
             builder: (_, __) {
               return Row(
                 mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  /// M LOGO
                   SlideTransition(
                     position: moveAnim,
                     child: Transform.scale(
@@ -136,20 +125,19 @@ class _SplashScreenState extends State<SplashScreen>
                       child: Image.asset(
                         "assets/logo/main.png",
                         height: 70,
+                        fit: BoxFit.contain,
                       ),
                     ),
                   ),
-
-                  const SizedBox(width: 12),
-
-                  /// NAME
+                  const SizedBox(width: 4),
                   SlideTransition(
                     position: nameSlide,
                     child: FadeTransition(
                       opacity: nameOpacity,
                       child: Image.asset(
                         "assets/logo/main2.png",
-                        height: 34,
+                        height: 40,
+                        fit: BoxFit.contain,
                       ),
                     ),
                   ),
@@ -157,7 +145,7 @@ class _SplashScreenState extends State<SplashScreen>
               );
             },
           )
-              : const SizedBox(), // blank gradient
+              : const SizedBox(),
         ),
       ),
     );

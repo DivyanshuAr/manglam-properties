@@ -83,6 +83,10 @@ flutter:
     - assets/logo/main.png
     - assets/logo/main2.png
     - assets/bg.png
+    - assets/expenses/status.svg
+    - assets/expenses/salary.svg
+    - assets/expenses/payment.svg
+
 
   #   - images/a_dot_ham.jpeg
 

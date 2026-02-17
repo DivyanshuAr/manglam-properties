@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import "package:flutter_svg/flutter_svg.dart";
+import 'package:flutter/services.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_text_styles.dart';
 import '../../../core/widgets/app_button.dart';
@@ -28,131 +28,129 @@ class _ForgotPinScreenState extends State<ForgotPinScreen> {
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F5F5),
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        title: GestureDetector(
-          onTap: () => Navigator.pop(context),
-          child: const Row(
-            children: [
-              Icon(Icons.arrow_back_ios_new, color: Colors.black, size: 18),
-              SizedBox(width: 8),
-              Text(
-                "Back",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
+      backgroundColor: const Color(0xFFFFF8E9),
+      body: Stack(
+        children: [
+          Positioned(
+            top: 45,
+            left: 0,
+            right: 0,
+            child: Image.asset(
+              'assets/bg.png',
+              height: size.height * 0.42,
+              width: size.width,
+              fit: BoxFit.fill,
+            ),
           ),
-        ),
-      ),
-      extendBodyBehindAppBar: true,
-      body: SafeArea(
-        top: false,
-        bottom: false,
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            return SingleChildScrollView(
-              child: ConstrainedBox(
-                constraints: BoxConstraints(minHeight: constraints.maxHeight),
-                child: IntrinsicHeight(
-                  child: Column(
-                    children: [
-                      Expanded(
-                        child: Stack(
-                          alignment: Alignment.bottomCenter,
-                          children: [
-                            Positioned(
-                              bottom: 20,
-                              child: Container(
-                                height: size.height * 0.24,
-                                width: size.height * 0.24,
-                                decoration: const BoxDecoration(
-                                  color: Color(0xFFE8E1DA),
-                                  shape: BoxShape.circle,
-                                ),
-                              ),
-                            ),
-                            SvgPicture.asset(
-                              "assets/login.svg",
-                              height: size.height * 0.30,
-                              fit: BoxFit.contain,
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.fromLTRB(24, 40, 24, 30),
+          Positioned(
+            top: -100,
+            left: 0,
+            right: 0,
+            child: Container(
+              height: 400,
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.3),
+                shape: BoxShape.circle,
+              ),
+            ),
+          ),
+          SafeArea(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 16, top: 10),
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: GestureDetector(
+                      onTap: () => Navigator.pop(context),
+                      child: Container(
+                        padding: const EdgeInsets.all(8),
                         decoration: const BoxDecoration(
-                          color: AppColors.white,
-                          borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(30),
-                          ),
+                          color: Colors.white,
+                          shape: BoxShape.circle,
                         ),
-                        child: Form(
-                          key: _formKey,
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text("Forgot Pin", style: AppTextStyles.heading),
-                              const SizedBox(height: 8),
-                              Text(
-                                "Verify your Mobile Number to set new Pin",
-                                style: AppTextStyles.subText,
-                              ),
-                              const SizedBox(height: 30),
-                              AppTextField(
-                                hint: "Enter Mobile Number",
-                                controller: mobileController,
-                                keyboardType: TextInputType.phone,
-                                maxLength: 10,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return "Mobile number required";
-                                  }
-                                  if (value.length != 10) {
-                                    return "Enter valid 10 digit number";
-                                  }
-                                  return null;
-                                },
-                                onChanged: (_) => setState(() {}),
-                              ),
-                              const SizedBox(height: 32),
-                              AppButton(
-                                title: "Send OTP",
-                                isEnabled: mobileController.text.length == 10,
-                                onTap: () {
-                                  if (_formKey.currentState!.validate()) {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (_) => OtpScreen(
-                                          mobile: mobileController.text,
-                                        ),
-                                      ),
-                                    );
-                                  }
-                                },
-                              ),
-                              SizedBox(height: MediaQuery.of(context).padding.bottom),
-                            ],
-                          ),
-                        ),
+                        child: const Icon(Icons.arrow_back_ios_new, size: 18, color: Colors.black),
                       ),
-                    ],
+                    ),
                   ),
                 ),
-              ),
-            );
-          },
-        ),
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset('assets/logo/main.png', height: 55),
+                    const SizedBox(width: 12),
+                    Image.asset('assets/logo/main2.png', height: 55),
+                  ],
+                ),
+                const Spacer(),
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.fromLTRB(24, 32, 24, 24),
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(35),
+                      topRight: Radius.circular(35),
+                    ),
+                  ),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Forgot Pin", style: AppTextStyles.heading),
+                        const SizedBox(height: 8),
+                        Text(
+                          "Verify your Mobile Number to set new Pin",
+                          style: AppTextStyles.subText,
+                        ),
+                        const SizedBox(height: 30),
+                        AppTextField(
+                          hint: "Enter Mobile Number",
+                          controller: mobileController,
+                          keyboardType: TextInputType.phone,
+                          maxLength: 10,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Mobile number required";
+                            }
+                            if (value.length != 10) {
+                              return "Enter valid 10 digit number";
+                            }
+                            return null;
+                          },
+                          onChanged: (_) => setState(() {}),
+                        ),
+                        const SizedBox(height: 32),
+                        AppButton(
+                          title: "Send OTP",
+                          isEnabled: mobileController.text.length == 10,
+                          onTap: () {
+                            if (_formKey.currentState!.validate()) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => OtpScreen(
+                                    mobile: mobileController.text,
+                                  ),
+                                ),
+                              );
+                            }
+                          },
+                        ),
+                        SizedBox(height: MediaQuery.of(context).padding.bottom),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

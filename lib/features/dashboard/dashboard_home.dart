@@ -9,11 +9,11 @@ class DashboardHomeScreen extends StatelessWidget {
   String getFormattedDate() {
     final now = DateTime.now();
     const days = [
-      "Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"
+      "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
     ];
     const months = [
-      "Jan","Feb","Mar","Apr","May","Jun",
-      "Jul","Aug","Sep","Oct","Nov","Dec"
+      "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
     ];
     return "${days[now.weekday - 1]}, ${now.day} ${months[now.month - 1]} ${now.year}";
   }
@@ -23,10 +23,10 @@ class DashboardHomeScreen extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     final stats = [
-      {"count": "3", "label": "New Leads", "color": const Color(0xFFE9DCD2)},
-      {"count": "2", "label": "Accepted", "color": const Color(0xFFD6DEEE)},
-      {"count": "1", "label": "In Progress", "color": const Color(0xFFE4D5E3)},
-      {"count": "1", "label": "Completed", "color": const Color(0xFFD5E5E1)},
+      {"count": "3", "label": "New Leads", "color": const Color(0xFFFFE8DE), "textColor": const Color(0xFFFF6411)},
+      {"count": "2", "label": "Accepted", "color": const Color(0xFFDEE4FB), "textColor": const Color(0xFF4376C9)},
+      {"count": "1", "label": "In Progress", "color": const Color(0xFFFFE3F4), "textColor": const Color(0xFF471B36)},
+      {"count": "1", "label": "Completed", "color": const Color(0xFFC9E8E3), "textColor": const Color(0xFF02806E)},
     ];
 
     return Scaffold(
@@ -36,72 +36,53 @@ class DashboardHomeScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
-             // HEADER
               Container(
                 width: double.infinity,
                 padding: EdgeInsets.symmetric(
                   horizontal: size.width * .05,
-                  vertical: 16,
+                  vertical: 20,
                 ),
                 decoration: const BoxDecoration(
-                  color: Color(0xFFF4EEDF),
+                  color: Color(0xFFFFF8E9),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const Text(
                           "Company Name",
                           style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xFFE0A23A),
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700,
+                            color: Color(0xFFD6A43B),
                           ),
                         ),
                         GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) =>
-                                const NotificationScreen(),
-                              ),
-                            );
-                          },
+                          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const NotificationScreen())),
                           child: Container(
-                            height: 36,
-                            width: 36,
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFFFF1D6),
-                              borderRadius: BorderRadius.circular(20),
+                            height: 40,
+                            width: 40,
+                            decoration: const BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
                             ),
-                            child: const Icon(Icons.notifications_none,
-                                color: Color(0xFFE0A23A), size: 20),
+                            child: const Icon(Icons.notifications_none, color: Color(0xFFD6A43B), size: 24),
                           ),
                         )
                       ],
                     ),
-
-                    const SizedBox(height: 20),
-
+                    const SizedBox(height: 24),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text("Hello Jatin!",
-                                style: AppTextStyles.heading),
+                            Text("Hello Jatin!", style: AppTextStyles.heading.copyWith(fontSize: 24)),
                             const SizedBox(height: 4),
-                            Text(
-                              getFormattedDate(),
-                              style: const TextStyle(
-                                  color: Color(0xFF8E8E8E)),
-                            ),
+                            Text(getFormattedDate(), style: const TextStyle(color: Color(0xFF7A7A7A), fontSize: 14)),
                           ],
                         ),
                         SvgPicture.asset(
@@ -110,82 +91,67 @@ class DashboardHomeScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-
-                    const SizedBox(height: 0),
-
                     SizedBox(
                       width: double.infinity,
-                      height: 48,
+                      height: 54,
                       child: ElevatedButton(
                         onPressed: () {},
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFFE0A23A),
+                          backgroundColor: const Color(0xFFF3AD44),
                           foregroundColor: Colors.black,
                           elevation: 0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                         ),
-                        child: const Text("Clock In"),
+                        child: const Text("Clock In", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
                       ),
                     ),
-
-                    const SizedBox(height: 18),
-
+                    const SizedBox(height: 24),
                     Row(
                       children: stats.map((e) {
                         return Expanded(
                           child: Padding(
-                            padding: const EdgeInsets.only(right: 10),
+                            padding: const EdgeInsets.only(right: 8),
                             child: _StatCard(
                               e["count"] as String,
                               e["label"] as String,
                               e["color"] as Color,
+                              e["textColor"] as Color,
                             ),
                           ),
                         );
                       }).toList(),
                     ),
-
-                    const SizedBox(height: 20),
-
+                    const SizedBox(height: 24),
                     Container(
-                      padding: const EdgeInsets.all(18),
+                      padding: const EdgeInsets.all(20),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(18),
+                        borderRadius: BorderRadius.circular(20),
                         gradient: const LinearGradient(
-                          colors: [Color(0xFF6B3E57), Color(0xFF34182B)],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [Color(0xFF5D2E4A), Color(0xFF321626)],
                         ),
                       ),
                       child: Row(
-                        mainAxisAlignment:
-                        MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Column(
-                            crossAxisAlignment:
-                            CrossAxisAlignment.start,
-                            children: [
-                              Text("Start Next Visit",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight:
-                                      FontWeight.bold)),
-                              SizedBox(height: 4),
-                              Text(
-                                  "Nearest accepted lead- 2.1 km away",
-                                  style: TextStyle(
-                                      color: Colors.white70)),
-                            ],
+                          const Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text("Start Next Visit", style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w700)),
+                                SizedBox(height: 6),
+                                Text("Nearest accepted lead- 2.1 km away", style: TextStyle(color: Colors.white70, fontSize: 13)),
+                              ],
+                            ),
                           ),
                           Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 14, vertical: 8),
+                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                             decoration: BoxDecoration(
                               color: Colors.white,
-                              borderRadius:
-                              BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                            child: const Text("Start Visit"),
+                            child: const Text("Start Visit", style: TextStyle(fontWeight: FontWeight.w700, color: Color(0xFF321626))),
                           )
                         ],
                       ),
@@ -193,48 +159,36 @@ class DashboardHomeScreen extends StatelessWidget {
                   ],
                 ),
               ),
-
-              //////////////////////////////////////////////////////
-              /// BODY (WHITE AREA)
-              //////////////////////////////////////////////////////
               Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: size.width * .05,
-                  vertical: 16,
-                ),
+                padding: EdgeInsets.symmetric(horizontal: size.width * .05, vertical: 24),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-
                     Row(
-                      mainAxisAlignment:
-                      MainAxisAlignment.spaceBetween,
-                      children: const [
-                        Text("Today’s Visits",
-                            style: AppTextStyles.sectionTitle),
-                        Row(
-                          children: [
-                            Text("View all Visits",
-                                style: TextStyle(
-                                    color: Color(0xFF8E8E8E))),
-                            SizedBox(width: 4),
-                            Icon(Icons.arrow_forward_ios,
-                                size: 14,
-                                color: Color(0xFF8E8E8E)),
-                          ],
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text("Today’s Visits", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
+                        GestureDetector(
+                          onTap: () {},
+                          child: const Row(
+                            children: [
+                              Text("View all Visits", style: TextStyle(color: Color(0xFF7A7A7A), fontSize: 14)),
+                              SizedBox(width: 4),
+                              Icon(Icons.arrow_forward_ios, size: 12, color: Color(0xFF7A7A7A)),
+                            ],
+                          ),
                         ),
                       ],
                     ),
-
-                    const SizedBox(height: 12),
-
+                    const SizedBox(height: 16),
                     const _VisitCard(
                       title: "PV-JDP-2041",
                       subtitle: "Pal Road, Jodhpur",
                       status: "Accepted",
                       distance: "2.1 Km",
+                      color: Color(0xFF6B3E57),
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 12),
                     const _VisitCard(
                       title: "PV-JDP-2041",
                       subtitle: "Chopasni Housing Board",
@@ -242,42 +196,23 @@ class DashboardHomeScreen extends StatelessWidget {
                       distance: "2.1 Km",
                       isDue: true,
                     ),
-
-                    const SizedBox(height: 22),
-
-                    const Text("Daily Working Hours",
-                        style: AppTextStyles.sectionTitle),
-                    const SizedBox(height: 12),
-
+                    const SizedBox(height: 32),
+                    const Text("Last 7 days Working Hours", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
+                    const SizedBox(height: 16),
                     Container(
-                      height: 120,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFF0F0F0),
-                        borderRadius:
-                        BorderRadius.circular(16),
-                      ),
-                      child: const Text(
-                        "Working hours chart will appear here",
-                        style: TextStyle(
-                            color: Color(0xFF8E8E8E)),
-                      ),
+                      height: 180,
+                      width: double.infinity,
+                      decoration: BoxDecoration(color: const Color(0xFFF9F9F9), borderRadius: BorderRadius.circular(20)),
+                      child: const Center(child: Text("Chart Placeholder", style: TextStyle(color: Colors.grey))),
                     ),
-
-                    const SizedBox(height: 22),
-
-                    const Text("Quick Actions",
-                        style: AppTextStyles.sectionTitle),
-                    const SizedBox(height: 12),
-
-                    const Row(
-                      children: [
-                        _QuickAction("Add Expenses",
-                            "assets/dashboard/add.svg"),
-                        _QuickAction("Inspection\nGuidelines",
-                            "assets/dashboard/inspection.svg"),
-                        _QuickAction("Call Supervisor",
-                            "assets/dashboard/call.svg"),
+                    const SizedBox(height: 32),
+                    const Text("Quick Actions", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
+                    const SizedBox(height: 16),
+                    Row(
+                      children: const [
+                        _QuickAction("Add Expenses", "assets/dashboard/add.svg", Color(0xFFF3AD44)),
+                        _QuickAction("Inspection\nGuidelines", "assets/dashboard/inspection.svg", Color(0xFF5D2E4A)),
+                        _QuickAction("Call Supervisor", "assets/dashboard/call.svg", Color(0xFF4285F4)),
                       ],
                     ),
                   ],
@@ -295,25 +230,38 @@ class _StatCard extends StatelessWidget {
   final String count;
   final String label;
   final Color color;
+  final Color textColor;
 
-  const _StatCard(this.count, this.label, this.color);
+  const _StatCard(this.count, this.label, this.color, this.textColor);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 70,
+      padding: const EdgeInsets.fromLTRB(12, 16, 8, 16),
       decoration: BoxDecoration(
         color: color,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(14),
       ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(count,
-              style: const TextStyle(
-                  fontWeight: FontWeight.bold, fontSize: 16)),
+          Text(
+            count,
+            style: TextStyle(
+              fontWeight: FontWeight.w800,
+              fontSize: 22,
+              color: textColor,
+            ),
+          ),
           const SizedBox(height: 4),
-          Text(label, style: const TextStyle(fontSize: 12)),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+              color: textColor,
+            ),
+          ),
         ],
       ),
     );
@@ -323,8 +271,9 @@ class _StatCard extends StatelessWidget {
 class _QuickAction extends StatelessWidget {
   final String title;
   final String image;
+  final Color iconBg;
 
-  const _QuickAction(this.title, this.image);
+  const _QuickAction(this.title, this.image, this.iconBg);
 
   @override
   Widget build(BuildContext context) {
@@ -332,18 +281,13 @@ class _QuickAction extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            height: 90,
-            margin: const EdgeInsets.symmetric(horizontal: 6),
-            decoration: BoxDecoration(
-              color: const Color(0xFFF5F5F5),
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Center(
-              child: SvgPicture.asset(image, width: 50),
-            ),
+            height: 80,
+            width: 80,
+            decoration: BoxDecoration(color: const Color(0xFFF9F9F9), borderRadius: BorderRadius.circular(16)),
+            child: Center(child: SvgPicture.asset(image, width: 32)),
           ),
-          const SizedBox(height: 8),
-          Text(title, textAlign: TextAlign.center),
+          const SizedBox(height: 10),
+          Text(title, textAlign: TextAlign.center, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
         ],
       ),
     );
@@ -356,6 +300,7 @@ class _VisitCard extends StatelessWidget {
   final String status;
   final String distance;
   final bool isDue;
+  final Color? color;
 
   const _VisitCard({
     required this.title,
@@ -363,44 +308,45 @@ class _VisitCard extends StatelessWidget {
     required this.status,
     required this.distance,
     this.isDue = false,
+    this.color,
   });
 
   @override
   Widget build(BuildContext context) {
-    final color = isDue ? Colors.red : const Color(0xFF6A1B4D);
+    final statusColor = isDue ? const Color(0xFFFF5C5C) : (color ?? const Color(0xFF6B3E57));
+    final bgColor = isDue ? const Color(0xFFFFF5F5) : const Color(0xFFF9F9F9);
 
     return Container(
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: const Color(0xFFF2F2F2),
-        borderRadius: BorderRadius.circular(14),
-      ),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(color: bgColor, borderRadius: BorderRadius.circular(16)),
       child: Row(
         children: [
-          Icon(Icons.location_on, color: color),
-          const SizedBox(width: 10),
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12)),
+            child: Icon(Icons.location_on, color: statusColor, size: 20),
+          ),
+          const SizedBox(width: 16),
           Expanded(
             child: Column(
-              crossAxisAlignment:
-              CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.w600)),
+                Text(title, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 15)),
                 const SizedBox(height: 4),
-                Text(subtitle,
-                    style: const TextStyle(
-                        color: Color(0xFF8E8E8E))),
+                Text(subtitle, style: const TextStyle(color: Color(0xFF7A7A7A), fontSize: 13)),
               ],
             ),
           ),
           Column(
-            crossAxisAlignment:
-            CrossAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text(status, style: TextStyle(color: color)),
-              const SizedBox(height: 4),
-              Text(distance),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(color: statusColor.withOpacity(0.1), borderRadius: BorderRadius.circular(6)),
+                child: Text(status, style: TextStyle(color: statusColor, fontSize: 11, fontWeight: FontWeight.w700)),
+              ),
+              const SizedBox(height: 6),
+              Text(distance, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
             ],
           ),
         ],

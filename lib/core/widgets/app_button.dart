@@ -10,29 +10,34 @@ class AppButton extends StatelessWidget {
     super.key,
     required this.title,
     required this.onTap,
-    this.isEnabled = true, // ✅ default enabled
+    this.isEnabled = true,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: 52,
+      height: 56,
       child: ElevatedButton(
-        onPressed: isEnabled ? onTap : null, // ✅ disable logic
+        onPressed: isEnabled ? onTap : null,
         style: ElevatedButton.styleFrom(
+          elevation: 0,
           backgroundColor:
-          isEnabled ? AppColors.accent : Colors.grey.shade300,
+          isEnabled ? AppColors.accent : const Color(0xFFE0E0E0),
           foregroundColor:
-          isEnabled ? Colors.white : Colors.grey,
+          isEnabled ? Colors.black : const Color(0xFF9E9E9E),
+          disabledBackgroundColor: const Color(0xFFE0E0E0),
+          disabledForegroundColor: const Color(0xFF9E9E9E),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(14),
           ),
-          elevation: 0,
         ),
         child: Text(
           title,
-          style: const TextStyle(fontWeight: FontWeight.w600),
+          style: const TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ),
     );

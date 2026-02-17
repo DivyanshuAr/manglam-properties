@@ -1,6 +1,22 @@
 import 'package:flutter/material.dart';
 import '../search/search_screen.dart';
 
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: ExpensesScreen(),
+    );
+  }
+}
+
 class ExpensesScreen extends StatelessWidget {
   const ExpensesScreen({super.key});
 
@@ -17,9 +33,14 @@ class ExpensesScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
+        centerTitle: false,
         title: const Text(
           "Expenses",
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+          ),
         ),
         actions: [
           Padding(
@@ -28,25 +49,28 @@ class ExpensesScreen extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                   MaterialPageRoute(
+                  MaterialPageRoute(
                     builder: (_) => const SearchScreen(),
                   ),
                 );
               },
-              child: const Icon(Icons.search, color: Colors.black),
+              child: const Icon(Icons.search, color: Colors.black, size: 22),
             ),
-          )
-
+          ),
         ],
       ),
-      body: ListView.separated(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
-        itemCount: expenses.length,
-        separatorBuilder: (_, __) => const SizedBox(height: 16),
-        itemBuilder: (_, index) {
-          final item = expenses[index];
-          return _ExpenseCard(item: item);
-        },
+        child: Column(
+          children: expenses
+              .map(
+                (item) => Padding(
+              padding: const EdgeInsets.only(bottom: 16),
+              child: _ExpenseCard(item: item),
+            ),
+          )
+              .toList(),
+        ),
       ),
     );
   }
@@ -80,8 +104,8 @@ class _ExpenseCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFFEFEFEF),
-        borderRadius: BorderRadius.circular(18),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -89,47 +113,59 @@ class _ExpenseCard extends StatelessWidget {
           Text(
             "Case: ${item.caseId}",
             style: const TextStyle(
-              fontWeight: FontWeight.w600,
               fontSize: 16,
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
             ),
           ),
-          const SizedBox(height: 12),
-
+          const SizedBox(height: 16),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _info("Visit Date", item.visitDate),
-              _info("Visit Date", item.visitTime),
+              Expanded(
+                child: _info("Visit Date", item.visitDate),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: _info("Visit Date", item.visitTime),
+              ),
             ],
           ),
-
-          const SizedBox(height: 12),
-
+          const SizedBox(height: 16),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _info("Distance Covered", item.distance),
-              _info("Rate Applied", item.rate),
+              Expanded(
+                child: _info("Distance Covered", item.distance),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: _info("Rate Applied", item.rate),
+              ),
             ],
           ),
-
+          const SizedBox(height: 16),
+          const Divider(
+            height: 1,
+            thickness: 1,
+            color: Color(0xFFE0E0E0),
+          ),
           const SizedBox(height: 12),
-          const Divider(),
-          const SizedBox(height: 8),
-
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text(
                 "Total Claimed Amount",
-                style: TextStyle(color: Colors.grey),
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  color: Color(0xFF8E8E93),
+                ),
               ),
               Text(
                 item.total,
                 style: const TextStyle(
-                  color: Color(0xFFE6A73B),
-                  fontWeight: FontWeight.bold,
                   fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xFFE6A73B),
                 ),
               ),
             ],
@@ -143,11 +179,22 @@ class _ExpenseCard extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: const TextStyle(color: Colors.grey)),
-        const SizedBox(height: 4),
+        Text(
+          title,
+          style: const TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+            color: Color(0xFF8E8E93),
+          ),
+        ),
+        const SizedBox(height: 6),
         Text(
           value,
-          style: const TextStyle(fontWeight: FontWeight.w500),
+          style: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: Colors.black,
+          ),
         ),
       ],
     );

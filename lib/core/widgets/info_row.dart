@@ -5,22 +5,32 @@ class InfoRow extends StatelessWidget {
   final String label;
   final String value;
 
-  const InfoRow({super.key, required this.label, required this.value});
+  const InfoRow({
+    super.key,
+    required this.label,
+    required this.value,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
+      padding: const EdgeInsets.symmetric(vertical: 6),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(
-            flex: 4,
-            child: Text(label, style: AppTextStyles.label),
+          SizedBox(
+            width: 120,
+            child: Text(
+              label,
+              style: AppTextStyles.label,
+            ),
           ),
+          const SizedBox(width: 12),
           Expanded(
-            flex: 6,
-            child: Text(value, style: AppTextStyles.value),
+            child: Text(
+              value,
+              style: AppTextStyles.value,
+            ),
           ),
         ],
       ),

@@ -41,8 +41,12 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
         focusNode: node,
         keyboardType: TextInputType.number,
         textAlign: TextAlign.center,
+        style: const TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w600,
+        ),
         maxLength: 1,
-        inputFormatters:  [FilteringTextInputFormatter.digitsOnly],
+        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
         onChanged: (v) {
           if (v.isNotEmpty) {
             if (index < focusList.length - 1) {
@@ -93,10 +97,11 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
-        child: Stack(
+        child: Column(
           children: [
+            /// ===== TOP IMAGE AREA =====
             SizedBox(
-              height: height * .48,
+              height: height * .42,
               width: double.infinity,
               child: Stack(
                 alignment: Alignment.center,
@@ -119,12 +124,10 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
               ),
             ),
 
-            Positioned(
-              top: height * .40,
-              left: 0,
-              right: 0,
-              bottom: 0,
+            /// ===== BOTTOM CARD =====
+            Expanded(
               child: Container(
+                width: double.infinity,
                 padding: const EdgeInsets.fromLTRB(20, 24, 20, 20),
                 decoration: const BoxDecoration(
                   color: Colors.white,
@@ -140,7 +143,6 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
-                          color: Colors.black,
                         ),
                       ),
                       const SizedBox(height: 6),

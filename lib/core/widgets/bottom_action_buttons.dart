@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/app_colors.dart';
 
 class BottomActionButtons extends StatelessWidget {
   final VoidCallback onPrevious;
@@ -13,21 +14,26 @@ class BottomActionButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(16, 10, 16, 20),
-      color: const Color(0xFFF7F7F7),
+      padding: EdgeInsets.fromLTRB(
+        16,
+        10,
+        16,
+        16 + MediaQuery.of(context).padding.bottom,
+      ),
+      color: AppColors.background,
       child: Row(
         children: [
           Expanded(
             child: SizedBox(
-              height: 48,
+              height: 56,
               child: ElevatedButton(
                 onPressed: onPrevious,
                 style: ElevatedButton.styleFrom(
                   elevation: 0,
-                  backgroundColor: const Color(0xFFE8D9B5),
+                  backgroundColor: const Color(0xFFFFF3E0),
                   foregroundColor: Colors.orange,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(14),
                   ),
                 ),
                 child: const Row(
@@ -37,25 +43,28 @@ class BottomActionButtons extends StatelessWidget {
                     SizedBox(width: 6),
                     Text(
                       "Previous",
-                      style: TextStyle(fontWeight: FontWeight.w600),
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ],
                 ),
               ),
             ),
           ),
-          const SizedBox(width: 12),
+          const SizedBox(width: 14),
           Expanded(
             child: SizedBox(
-              height: 48,
+              height: 56,
               child: ElevatedButton(
                 onPressed: onNext,
                 style: ElevatedButton.styleFrom(
                   elevation: 0,
-                  backgroundColor: const Color(0xFFE8D9B5),
-                  foregroundColor: Colors.orange,
+                  backgroundColor: AppColors.accent,
+                  foregroundColor: Colors.black,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(14),
                   ),
                 ),
                 child: const Row(
@@ -63,7 +72,10 @@ class BottomActionButtons extends StatelessWidget {
                   children: [
                     Text(
                       "Next",
-                      style: TextStyle(fontWeight: FontWeight.w600),
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                     SizedBox(width: 6),
                     Icon(Icons.arrow_forward, size: 18),

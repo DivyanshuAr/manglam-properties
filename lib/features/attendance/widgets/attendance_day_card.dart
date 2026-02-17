@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
-import '../../../core/theme/app_text_styles.dart';
 
 class AttendanceDayCard extends StatelessWidget {
   final String date;
@@ -27,70 +26,59 @@ class AttendanceDayCard extends StatelessWidget {
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: AppColors.white,
-        borderRadius: BorderRadius.circular(14),
+        borderRadius: BorderRadius.circular(16),
       ),
       child: Row(
         children: [
-
-          /// LEFT DATE BOX
           Container(
-            width: 52,
-            height: 60,
+            width: 56,
+            height: 56,
             decoration: BoxDecoration(
-              color: bgColor,
+              color: bgColor.withOpacity(0.3),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment:
+              MainAxisAlignment.center,
               children: [
                 Text(
                   date,
                   style: const TextStyle(
-                    fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Text(
-                  day,
-                  style: AppTextStyles.caption,
-                ),
+                Text(day, style: const TextStyle(fontSize: 12))
               ],
             ),
           ),
-
           const SizedBox(width: 12),
-
-          /// DETAILS
           Expanded(
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment:
+              MainAxisAlignment.spaceBetween,
               children: [
-                _Info(title: "Punch In", value: inTime),
-                _Info(title: "Punch Out", value: outTime),
-                _Info(title: "Total Hours", value: total),
+                _time("Punch In", inTime),
+                _time("Punch Out", outTime),
+                _time("Total Hours", total),
               ],
             ),
-          ),
+          )
         ],
       ),
     );
   }
-}
 
-class _Info extends StatelessWidget {
-  final String title;
-  final String value;
-
-  const _Info({required this.title, required this.value});
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _time(String label, String value) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(value, style: AppTextStyles.bodyBold),
-        const SizedBox(height: 2),
-        Text(title, style: AppTextStyles.caption),
+        Text(value,
+            style:
+            const TextStyle(fontWeight: FontWeight.w600)),
+        const SizedBox(height: 4),
+        Text(label,
+            style: const TextStyle(
+                fontSize: 12, color: Colors.grey)),
       ],
     );
   }

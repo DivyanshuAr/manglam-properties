@@ -15,10 +15,36 @@ class AttendanceScreen extends StatefulWidget {
 class _AttendanceScreenState extends State<AttendanceScreen> {
   late int selectedMonth;
   late int selectedYear;
+  late DateTime selectedDate;
 
   final List<String> months = const [
-    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec"
+  ];
+
+  final List<String> fullMonths = const [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
   ];
 
   @override
@@ -27,6 +53,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
     final now = DateTime.now();
     selectedMonth = now.month - 1;
     selectedYear = now.year;
+    selectedDate = now;
   }
 
   @override
@@ -36,17 +63,29 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: AppColors.background,
+        titleSpacing: 24,
         title: const Text("Attendance", style: AppTextStyles.appBarTitle),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(1),
+          child: Container(
+            margin: const EdgeInsets.only(top: 8),
+            height: 1,
+            color: AppColors.border,
+          ),
+        ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 16),
             child: TextButton(
               style: TextButton.styleFrom(
-                backgroundColor: const Color(0xFFFFE7C2),
-                foregroundColor: Colors.orange,
-                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                backgroundColor: const Color(0xFFEFE6D6),
+                foregroundColor: AppColors.accent,
+                padding:
+                const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+                minimumSize: const Size(0, 36),
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(14),
                 ),
               ),
               onPressed: () {
@@ -54,7 +93,8 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                   context: context,
                   isScrollControlled: true,
                   shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                    borderRadius:
+                    BorderRadius.vertical(top: Radius.circular(20)),
                   ),
                   builder: (_) => const ApplyLeaveSheet(),
                 );
@@ -64,18 +104,14 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                 style: TextStyle(fontWeight: FontWeight.w600),
               ),
             ),
-
           )
         ],
       ),
-
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
-            /// MONTH TABS
             SizedBox(
               height: 36,
               child: ListView.separated(
@@ -86,7 +122,11 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                   final isSelected = index == selectedMonth;
                   return GestureDetector(
                     onTap: () {
-                      setState(() => selectedMonth = index);
+                      setState(() {
+                        selectedMonth = index;
+                        selectedDate =
+                            DateTime(selectedYear, index + 1, 1);
+                      });
                     },
                     child: Column(
                       children: [
@@ -112,45 +152,49 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                 },
               ),
             ),
-
             const SizedBox(height: 16),
-
-            /// MONTH + YEAR
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(months[selectedMonth],
+                Text(fullMonths[selectedMonth],
                     style: AppTextStyles.heading),
-                DropdownButton<int>(
-                  value: selectedYear,
-                  underline: const SizedBox(),
-                  items: List.generate(6, (index) {
-                    final year = DateTime.now().year - 3 + index;
-                    return DropdownMenuItem(
-                      value: year,
-                      child: Text(year.toString()),
-                    );
-                  }),
-                  onChanged: (value) {
-                    if (value != null) {
-                      setState(() => selectedYear = value);
-                    }
-                  },
+                Container(
+                  padding:
+                  const EdgeInsets.symmetric(horizontal: 12),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: AppColors.border),
+                    borderRadius: BorderRadius.circular(12),
+                    color: AppColors.white,
+                  ),
+                  child: DropdownButton<int>(
+                    value: selectedYear,
+                    underline: const SizedBox(),
+                    items: List.generate(6, (index) {
+                      final year = DateTime.now().year - 3 + index;
+                      return DropdownMenuItem(
+                        value: year,
+                        child: Text(year.toString()),
+                      );
+                    }),
+                    onChanged: (value) {
+                      if (value != null) {
+                        setState(() => selectedYear = value);
+                      }
+                    },
+                  ),
                 ),
               ],
             ),
-
             const SizedBox(height: 12),
-
-            /// CALENDAR
             AttendanceCalendar(
               month: selectedMonth + 1,
               year: selectedYear,
+              selectedDate: selectedDate,
+              onDateSelected: (date) {
+                setState(() => selectedDate = date);
+              },
             ),
-
             const SizedBox(height: 16),
-
-            /// LEGEND
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: const [
@@ -159,17 +203,14 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                 _Legend(color: Colors.purple, label: "Holiday"),
               ],
             ),
-
             const SizedBox(height: 16),
-
-            /// ATTENDANCE LIST
             AttendanceDayCard(
               date: "01",
               day: "MON",
               inTime: "09:50 AM",
               outTime: "06:05 PM",
               total: "08:13",
-              bgColor: Colors.greenAccent.shade100,
+              bgColor: Colors.greenAccent,
             ),
             AttendanceDayCard(
               date: "02",
@@ -177,7 +218,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
               inTime: "09:30 AM",
               outTime: "06:30 PM",
               total: "09:00",
-              bgColor: Colors.greenAccent.shade100,
+              bgColor: Colors.greenAccent,
             ),
             AttendanceDayCard(
               date: "03",
@@ -185,7 +226,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
               inTime: "09:08 AM",
               outTime: "06:05 PM",
               total: "08:30",
-              bgColor: Colors.redAccent.shade100,
+              bgColor: Colors.redAccent,
             ),
           ],
         ),

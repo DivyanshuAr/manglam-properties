@@ -184,7 +184,7 @@ class _ValuationStep1State extends State<ValuationStep1> {
         ],
       ),
 
-      ///  FIGMA STYLE BUTTONS
+
       bottomNavigationBar: BottomActionButtons(
         onPrevious: () => Navigator.pop(context),
         onNext: () {
